@@ -1,0 +1,24 @@
+# data and model outputs - never commit these
+data/
+outputs/
+*.pt
+*.pth
+*.safetensors
+*.jsonl
+*.npz
+
+# python
+.venv/
+venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# editors and os
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# secrets
+.env
