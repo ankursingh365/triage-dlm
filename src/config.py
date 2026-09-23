@@ -112,8 +112,19 @@ MODEL_NLI = "microsoft/deberta-large-mnli"             # entailment, Step 25
 # TraceDet found 64 best. 128 was worse. Do not change without re-reading
 # their experiments section.
 GEN_LENGTH = 64
-DENOISING_STEPS = 32
-BLOCK_LENGTH = 64
+DENOISING_STEPS = 64
+BLOCK_LENGTH = 32
+
+# Cache key for generated trajectories.
+#
+# Trajectories are cached by question id so Phase C can resume after a crash.
+# That cache is only valid for the decoder settings that produced it: on
+# 2026-09-22 a config change was silently ignored because 300 files from the
+# previous settings were already on the Volume, and the run reported new
+# settings in its banner while re-reading old data. Including the settings in
+# the path makes the cache correct by construction - change any of them and the
+# old files are simply a different directory.
+RUN_TAG = f"g{GEN_LENGTH}s{DENOISING_STEPS}b{BLOCK_LENGTH}"
 
 # ===========================================================================
 # 6. SELF-DESCRIPTION

@@ -330,26 +330,48 @@ def has_chat_template(tokenizer) -> bool:
 
 def assert_evidence_withheld(prompt_text: str, record: QARecord,
                              min_overlap: int = 8) -> None:
-    """Raise if any gold evidence appears in the prompt.
+    """Raise if gold evidence was ADDED to the prompt.
 
-    Cheap insurance against the single mistake that would invalidate the entire
-    project. Checks whether any run of `min_overlap` consecutive words from a
-    gold passage appears verbatim in the prompt.
+    Cheap insurance against the single mistake that would invalidate the whole
+    project. Leakage produces *better* results and therefore no symptom that
+    would prompt anyone to go looking, so it has to be caught mechanically.
 
-    Called by the generation loop for every question. It costs microseconds and
-    it makes evidence leakage impossible to commit silently - which matters,
-    because leakage produces *better* results and therefore no symptom that would
-    prompt anyone to go looking.
+    The subtlety: **HotpotQA questions restate their own supporting passages.**
+    Bridge questions are constructed by stitching facts out of the context, so
+    a question like
+
+        "Roger O. Egeberg was Assistant Secretary for Health and Scientific
+         Affairs during the administration of a president that served during
+         what years?"
+
+    shares long verbatim spans with its gold evidence by design. A naive n-gram
+    check against the whole prompt fires on ~every HotpotQA record - the first
+    version of this function killed a Step 9 run that way.
+
+    So the test is not "does evidence appear in the prompt" but "does evidence
+    appear in the prompt in a way the QUESTION does not already explain". A span
+    present in the question is the dataset's own phrasing; a span present in the
+    prompt but absent from the question came from somewhere else, and somewhere
+    else is a leak.
     """
     if not record.evidence_passages:
         return
-    hay = " ".join(prompt_text.lower().split())
+
+    def norm(text: str) -> str:
+        return " ".join(str(text).lower().split())
+
+    hay = norm(prompt_text)
+    question = norm(record.question)
+
     for passage in record.evidence_passages:
-        words = passage.lower().split()
+        words = norm(passage).split()
         for i in range(0, max(0, len(words) - min_overlap) + 1):
-            if " ".join(words[i:i + min_overlap]) in hay:
+            span = " ".join(words[i:i + min_overlap])
+            if span in hay and span not in question:
                 raise AssertionError(
-                    f"EVIDENCE LEAK in {record.dataset}/{record.qid}: a "
-                    f"{min_overlap}-word span of gold evidence appears in the "
-                    f"prompt. Generation must not see supporting passages."
+                    f"EVIDENCE LEAK in {record.dataset}/{record.qid}: the span\n"
+                    f"    {span!r}\n"
+                    f"appears in the prompt but not in the question, so it did "
+                    f"not come from the dataset's own phrasing. Generation must "
+                    f"never see supporting passages."
                 )

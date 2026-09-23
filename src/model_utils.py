@@ -219,8 +219,15 @@ def preflight_memory_check(model_size_gb: float = 15.0,
 # Quantisation configurations
 # ===========================================================================
 
+# VRAM below which full precision is not attempted. LLaDA-8B in bf16 is
+# 8.02B x 2 bytes = 16.0 GB of weights plus ~1 GB of activations, so 20 GiB is
+# the practical floor. An L4 (24 GB) or A100 (40/80 GB) clears it; a T4 (16 GB)
+# and the RTX 4050 (6 GB) do not.
+FULL_PRECISION_VRAM_FLOOR_GIB = 20.0
+
+
 def _quant_configs():
-    """The three 4-bit strategies, ordered fastest-first.
+    """Load strategies, ordered best-first.
 
     A  Everything on the GPU. NF4 with double quantisation (which compresses
        the quantisation constants themselves, worth roughly 0.4 GB here).
@@ -234,6 +241,18 @@ def _quant_configs():
     C  `device_map="auto"` lets accelerate place whatever does not fit into
        system RAM. Always works, but every offloaded layer is copied across
        PCIe on each forward pass, so expect a large slowdown. Last resort.
+
+    Configuration 0 is prepended on GPUs with at least
+    FULL_PRECISION_VRAM_FLOOR_GIB of memory: no quantisation at all.
+
+    **This matters scientifically, not just for speed.** The project measures
+    entropy and confidence trajectories, and 4-bit quantisation perturbs the
+    output distribution - which is precisely the quantity being measured. The
+    Step 20 gate requires reproducing Ave Entropy at 62-65 AUROC; TraceDet
+    reports 62.8 measured on an A40 in full precision. Under quantisation a miss
+    cannot be distinguished from an implementation bug, and the project's only
+    falsifiable anchor stops working. On a card that can hold the model, always
+    prefer config 0.
     """
     from transformers import BitsAndBytesConfig
 
@@ -246,7 +265,22 @@ def _quant_configs():
         bnb_4bit_compute_dtype=preferred_dtype(),
     )
 
-    return [
+    configs = []
+
+    # Config 0 - full precision, when the card can hold it.
+    try:
+        import torch
+        if torch.cuda.is_available():
+            total = gib(torch.cuda.get_device_properties(0).total_memory)
+            if total >= FULL_PRECISION_VRAM_FLOOR_GIB:
+                configs.append(
+                    (f"0  FULL PRECISION, no quantisation "
+                     f"({total:.0f} GiB card)",
+                     dict(device_map={"": 0})))
+    except Exception:
+        pass
+
+    return configs + [
         ("A  all on GPU, NF4 + double quant",
          dict(quantization_config=BitsAndBytesConfig(**base),
               device_map={"": 0})),

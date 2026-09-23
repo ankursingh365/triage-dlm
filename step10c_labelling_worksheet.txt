@@ -1,0 +1,2032 @@
+==============================================================================
+  TRIAGE - Step 10c: BLIND failure-mode labelling worksheet
+  2026-09-22 18:48:02
+==============================================================================
+
+HOW TO USE THIS
+---------------
+60 wrong answers, in random order. For each one, read the
+trace and write ONE letter in the blank. About 30 minutes.
+
+The machine's own label is deliberately NOT shown. If you see it first
+you will agree with it, and the agreement number this produces is the
+evidence the paper needs that the taxonomy is real rather than an
+artefact of where a threshold was put.
+
+THE FOUR LABELS
+---------------
+  L = LOCKED-IN     One wrong answer, fixed early, never seriously
+                    challenged. The right answer never appears. Reads
+                    as confident and wrong.
+
+  I = INTERLEAVING  The RIGHT answer appears at some round, then the
+                    model moves away from it and commits to a wrong one.
+                    Marked <-- GOLD where it was spotted, but check by
+                    eye: a common word like 'yes' may match by accident.
+
+  C = INCONSISTENT  Several unrelated guesses, none of them held. Often
+                    decays into word salad near the end.
+
+  X = NEITHER       Truncated, an echo of the question, or a near-miss
+                    that is arguably correct (e.g. 'Las Vegas' scored
+                    against gold 'Clark County'). Say which in the note.
+
+Trust your eye over the numbers. If a trace looks locked-in, write L,
+whatever the statistics next to it say. Disagreement between your labels
+and the code is the POINT of this exercise - it is what moves the
+thresholds.
+
+==============================================================================
+
+--- 01 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : Referring to an aspect of its shape, what is the alternative name for 
+  MODEL   : 'Cusp.'
+  GOLD    : Bicuspid | Maxillary bicuspid | Dens premolaris
+
+  stable_all 0.29   stable_top3 0.37   cands_top3 2.3   ans_len 4
+
+  shadow prediction, change-points only:
+      r00       | The alternative name for a premolar tooth is   <-- GOLD
+      r01-r02   | The alternative name for a
+      r03       | The alternative name for
+      r04       | The alternative name for a
+      r05-r10   | The alternative name for
+      r11       | The alternative name.
+      r12       | The alternative name for
+      r13       | The alternative name.
+      r14       | C alternative name.
+      r15       | C alternative..
+      r16-r26   | Cusp..
+      r27       | Cusp tooth.
+      r28-r63   | Cusp.
+
+  YOUR LABEL  [L]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 02 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : Both Truth in Science and Discovery embrace what campaign?
+  MODEL   : 'Both Truth in Science and Discovery embrace the Climate Reality campai'
+  GOLD    : "Teach the Controversy" campaign
+
+  stable_all 0.65   stable_top3 0.14   cands_top3 6.0   ans_len 13
+
+  shadow prediction, change-points only:
+      r00       | Both Truth in Science and Discovery the the "
+      r01       | Both Truth in Science and Discovery embrace the " " """ campai
+      r02-r03   | Both Truth in Science and Discovery embrace the "Climate """ c
+      r04       | Both Truth in Science and Discovery embrace the " " """ campai
+      r05       | Both Truth in Science and Discovery embrace the "Climate """ c
+      r06       | Both Truth in Science and Discovery embrace the " " """ campai
+      r07       | Both Truth in Science and Discovery embrace the "Climatekept""
+      r08       | Both Truth in Science and Discovery embrace the "Climate in" c
+      r09       | Both Truth in Science and Discovery embrace the " " in" campai
+      r10-r11   | Both Truth in Science and Discovery embrace the " "ical" campa
+      r12-r13   | Both Truth in Science and Discovery embrace the "Climateical" 
+      r14-r15   | Both Truth in Science and Discovery embrace the " "ical" campa
+      r16       | Both Truth in Science and Discovery embrace the " "." campaign
+      r17       | Both Truth in Science and Discovery embrace the " "kept" campa
+      r18       | Both Truth in Science and Discovery embrace the " "."..
+      r19       | Both Truth in Science and Discovery embrace the "Climatekept" 
+      r20-r24   | Both Truth in Science and Discovery embrace the " "....
+      r25       | Both Truth in Science and Discovery embrace the " for...
+      r26       | Both Truth in Science and Discovery embrace the Climateial cam
+      r27-r29   | Both Truth in Science and Discovery embrace the Climate Integr
+      r30       | Both Truth in Science and Discovery embrace the Climate denial
+      r31-r63   | Both Truth in Science and Discovery embrace the Climate Realit
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 03 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : Who wrote the jukebox musical depicting the recording session between 
+  MODEL   : 'The jukebox musical "Fame" was written by Fred Ebb.'
+  GOLD    : Floyd Mutrux and Colin Escott
+
+  stable_all 0.55   stable_top3 0.11   cands_top3 6.7   ans_len 17
+
+  shadow prediction, change-points only:
+      r00       | The jukebox musical " the"" and and
+      r01-r03   | The jukebox musical " the recording recording" the written by 
+      r04       | The jukebox musical " the recording recording" the " by of and
+      r05       | The jukebox musical " the recording recording" written written
+      r06       | The jukebox musical "F and"" written by by by by,,,,,,,,
+      r07       | The jukebox musical "Fame"" written by by by by, and
+      r08-r09   | The jukebox musical "Fame"" written by by by by and and
+      r10       | The jukebox musical "F""" written by by by by and and
+      r11       | The jukebox musical "Fame"" written by by by by and.
+      r12-r13   | The jukebox musical "F""" written by by by by and and
+      r14       | The jukebox musical "F""" written by by by by..
+      r15       | The jukebox musical "F""" written by by by and and.
+      r16       | The jukebox musical "F"" written written by by by...
+      r17       | The jukebox musical "F"" written written by by by and..
+      r18       | The jukebox musical "F"" written written by by by...
+      r19       | The jukebox musical "F""" written by by by...
+      r20       | The jukebox musical "F"" written written by by by...
+      r21       | The jukebox musical "F"" written by by by...
+      r22-r23   | The jukebox musical "F F"" was by by Stephenbb.
+      r24       | The jukebox musical "Fame"" was by by Stephenbb.
+      r25-r29   | The jukebox musical "Fame" was written by Larry Kbb.
+      r30-r63   | The jukebox musical "Fame" was written by Fred Ebb
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 04 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : What arcade game is named after the only player in major league histor
+  MODEL   : 'The arcade game named after the only player in major league history to'
+  GOLD    : a pinball machine
+
+  stable_all 0.83   stable_top3 0.08   cands_top3 5.0   ans_len 35
+
+  shadow prediction, change-points only:
+      r00       | The arcade game named after the player in major to have 0.300 
+      r01       | The arcade game is after the only player in named to have 0330
+      r02-r26   | The arcade game named after the only player in major league hi
+      r27       | The arcade game named after the only player in league history 
+      r28       | The arcade game named after the only player in MLB history to 
+      r29       | The arcade game named after only player in MLB history to a0.3
+      r30-r33   | The arcade game named after only player in League history to a
+      r34       | The arcade game named after only in major history to a 0.30 ba
+      r35-r36   | The arcade game named after only in League history to a030 bat
+      r37-r38   | The arcade game named after only in history to a030 batting av
+      r39       | The arcade game named after only player in League history to a
+      r40       | The arcade game named after only in history to a030 batting av
+      r41-r42   | The arcade game named after only player in League history to h
+      r43       | The arcade game named after only player in history to have a03
+      r44-r45   | The arcade game named after only player in League history to h
+      r46       | The arcade game named after only player in League history to a
+      r47-r48   | The arcade game named after only player in League history to h
+      r49-r51   | The arcade game named after only player in history to have030 
+      r52       | The arcade game named after only player in League history to h
+      r53       | The arcade game named after only player in League history to03
+      r54-r56   | The arcade game named after only player in League history to h
+      r57-r59   | The arcade game named after only player in major history to ha
+      r60       | The arcade game named after the only player in major history t
+      r61-r63   | The arcade game named after the only player in league history 
+
+  YOUR LABEL  [X]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 05 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : Which Dutch footballer is featured on the song Wij zijn Ajax by Ajax a
+  MODEL   : 'Frank de Jong.'
+  GOLD    : Ryan Guno Babel
+
+  stable_all 0.19   stable_top3 0.03   cands_top3 5.7   ans_len 5
+
+  shadow prediction, change-points only:
+      r00       | The Dutch footballer featured on the song "W Ajax" by
+      r01       | The van footballer on on on
+      r02-r04   | R van footballer on on on
+      r05       | R van van on
+      r06       | W van van on
+      r07       | R van van on
+      r08-r10   | W van van
+      r11-r15   | R van van
+      r16-r25   | Frank van van
+      r26       | Frank van Cru
+      r27       | Marco van
+      r28       | Marco van Pers.
+      r29       | Frank Bast Blind.
+      r30       | Frank deeman.
+      r31-r63   | Frank de Jong.
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 06 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : Harvey Littleton, Dominick Labino, Dale Chihuly, Dante Marioni, Fritz 
+  MODEL   : 'Harvey Littleton, Dominick Labino, Dale Chihuly, Dante Marioni, Fritz '
+  GOLD    : Glass | Optical glass | Glass sheet
+
+  stable_all 0.90   stable_top3 0.66   cands_top3 2.3   ans_len 38
+
+  shadow prediction, change-points only:
+      r00       | Harvey Littleton, Dominick Chulyioniof
+      r01-r04   | Harvey Littleton, Dominick Labino, Dale Chihuly, Dante Marioni   <-- GOLD
+      r05-r06   | Harveyleton, Dominick Labino, Dale Chihuly, Dante Marioni, Fri
+      r07-r09   | Harveyleton,ick Labino, Dale Chihuly, Dante Marioni, Fritz Dri
+      r10       | Harveyleton,ick Lab blown, Dale Chihuly, Dante Marioni, Fritz 
+      r11       | Harveyleton, ick Lab forms, Dale Chihuly, Dante Marioni, Fritz
+      r12-r13   | Harveyleton,ick Lab blown, Dale Chuly, Dante Marioni, Fritz Dr
+      r14       | Harveyleton, ick Lab forms, Dale Chuly, Dante Marioni, Fritz D
+      r15       | Harveyleton,ick Lab blown, Dale Chuly, Dante Marioni, Fritz Dr
+      r16       | Harveyleton,ick Lab forms, Daleuly, Dante Marioni, Fritz Dries
+      r17-r18   | Harveyleton,ick Lab blown, Daleuly, Dante Marioni, Fritz Dries
+      r19       | Harveyleton,ick Lab forms, Daleuly, Dante Marioni, Fritz Dries
+      r20       | Harveyleton,ick Lab blown, Daleuly Danteioni, Fritz Driesbach,
+      r21       | Harveyleton,ick Lab blown, Daleuly, Danteioni, Fritzriesbach, 
+      r22       | Harveyleton,ick Lab forms, Daleuly Danteioni, Fritz Dbach, and
+      r23       | Harveyleton,ick Lab installations, Daleuly Danteioni, Fritzbac
+      r24       | Harveyleton,ick Lab forms, Daleuly Danteioni, Fritzih, and Mar
+      r25       | Harveyleton,ick Lab forms, Daleuly Dante ioni, Fritzch, and Ma
+      r26       | Harveyleton,ick Lab forms, Daleuly Danteioni, Fritz blown, and
+      r27       | Harveyleton,ick Lab forms, Daleuly Dante ioni, Fritz blown and
+      r28       | Harveyleton,ick Lab forms, Daleuly Danteioni, Fritz blown and 
+      r29-r32   | Harveyleton,ick Lab forms, Daleuly, Danteioni, Fritz and Marvi
+      r33       | Harveyleton,ick Lab blown, Daleuly Danteioni, Fritz and Marvin
+      r34       | Harveyleton,ick Lab, Daleuly, Danteioni Fritz and Marvinsky ar
+      r35       | Harveyleton,ick Lab forms, Daleuly, Danteioni Fritz and Marvin
+      r36       | Harveyleton,ick Lab, Daleuly, Danteioni Fritz and Marvinsky ar
+      r37       | Harveyleton,ick Lab forms, Daleuly, Danteioni Fritz and Marvin
+      r38       | Harveyleton,ick Lab, Daleuly Danteioni Fritz and Marvinsky are
+      r39       | Harveyleton,ick Lab, Daleuly, Danteioni, Fritz and Marvinsky a
+      r40       | Harveyleton,ick Lab, Daleuly Danteioni Fritz and Marvinsky are
+      r41       | Harveyleton,ick Lab, Daleuly, Danteioni, Fritz and Marvinsky a
+      r42       | Harveyleton,ick Lab, Daleuly Danteioni, Fritz and Marvinsky ar
+      r43       | Harveyleton,ick Lab, Daleuly, Danteioni Fritz and Marvinsky ar
+      r44       | Harveyleton,ick Lab, Daleuly, Danteioni, Fritz and Marvinsky a
+      r45-r46   | Harveyleton,ick Lab, Daleuly, Danteioni Fritz and Marvinsky ar
+      r47       | Harveyleton,ick Lab, Daleuly, Dante ioni Fritz and Marvinsky a
+      r48-r56   | Harveyleton,ick Lab, Daleuly, Danteioni Fritz and Marvinsky ar
+      r57       | Harveyleton,ick Lab, Daleuly, Danteioni, Fritz and Marvinsky a
+      r58       | Harveyleton,ick Lab , Daleuly, Danteioni, Fritz and Marvinsky 
+      r59       | Harveyleton, Dominick Lab , Daleuly, Danteioni, Fritz, and Mar
+      r60       | Harveyleton,ick Lab , Daleuly, Danteioni, Fritz, and Marvinsky
+      r61       | Harvey Littleton,ick Labino, Dale Chuly, Dante ioni, Fritz , a
+      r62       | Harvey artistsleton, Dominick Labo, Daleuly, Dante ioni, Fritz
+      r63       | Harveyleton, Dominick Labino, Daleuly, Danteioni, Fritz and Ma
+
+  YOUR LABEL  [x]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 07 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : The Argentine National Anthem was adopted 3 years after which event th
+  MODEL   : 'The Argentine National Anthem was adopted in 1813, 3 years after the B'
+  GOLD    : May Revolution
+
+  stable_all 0.48   stable_top3 0.14   cands_top3 7.3   ans_len 53
+
+  shadow prediction, change-points only:
+      r00       | The Argentine National Anthem was adopted in years after the5 
+      r01       | The Argentine National Anthem was adopted in 18 the5 of the of
+      r02-r04   | The Argentine National Anthem was adopted in 1812, the the the
+      r05       | The Argentine May Anthem was adopted in 1810 of the to the the
+      r06       | The Argentine May Anthem was adopted in 18 the5, the the the t
+      r07-r13   | The Argentine National Anthem was adopted in 1813, 3 years aft
+      r14-r15   | The Argentine National Anthem was adopted in01813, 3 years aft
+      r16       | The Argentine National Anthem was adopted in 1813, 3 years aft
+      r17-r18   | The Argentine National Anthem was adopted in 1813,03 years aft
+      r19-r20   | The Argentine National Anthem was adopted in01813, the3 years 
+      r21       | The Argentine National Anthem was adopted in 813, 3 years afte
+      r22       | The Argentine National Anthem was adopted in 1813, 3 years aft
+      r23       | The Argentine National Anthem was adopted in 1813,3 years afte
+      r24-r31   | The Argentine National Anthem was adopted in 813, 3 years afte
+      r32       | The Argentine National Anthem was adopted in 1813, 3 years aft
+      r33       | The Argentine National Anthem was adopted in 813, 3 years afte
+      r34-r36   | The Argentine National Anthem was adopted in 1813, 3 years aft
+      r37       | The Argentine National Anthem was adopted in 813, 3 years afte
+      r38       | The Argentine National Anthem was adopted in 1813, de3 years a
+      r39       | The Argentine National Anthem was adopted in 1813, War3 years 
+      r40-r52   | The Argentine National Anthem was adopted in 1813, 3 years aft
+      r53-r59   | The Argentine National Anthem was adopted in 813, 3 years afte
+      r60-r63   | The Argentine National Anthem was adopted in 1813, 3 years aft
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 08 / 60 --------------------------------------------------------
+  dataset : commonsenseqa
+  Q       : What blocks sunshine?
+  MODEL   : 'C. desktop'
+  GOLD    : moon | E
+
+  stable_all 0.43   stable_top3 0.56   cands_top3 3.0   ans_len 4
+
+  shadow prediction, change-points only:
+      r00       | The best option is
+      r01-r02   | E. desktop
+      r03-r05   | C. desktop
+      r06       | E. desktop
+      r07-r09   | C. desktop
+      r10-r11   | E. desktop
+      r12-r16   | C. desktop
+      r17       | E. desktop
+      r18       | D. moon   <-- GOLD
+      r19-r63   | C. desktop
+
+  YOUR LABEL  [I]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 09 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : Roger O. Egeberg was Assistant Secretary for Health and Scientific Aff
+  MODEL   : 'Roger O. Egeberg was Assistant Secretary for Health and Scientific Aff'
+  GOLD    : 1969 until 1974
+
+  stable_all 0.65   stable_top3 0.60   cands_top3 2.0   ans_len 40
+
+  shadow prediction, change-points only:
+      r00-r01   | Roger O. Egeberg was Assistant Secretary for Health and Scient
+      r02-r04   | Roger O. Egeberg was Assistant Secretary for Health and and Af
+      r05-r06   | Roger O. Egeberg was Assistant Secretary for Health Health and
+      r07       | Roger O. Egeberg was Assistant Secretary for Health and Scient
+      r08       | Roger O.geberg was Assistant Secretary for Health and Scientif
+      r09-r12   | Roger O..geberg was Assistant Secretary for Health and Scienti
+      r13-r16   | Roger O..geberg was Assistant Secretary for and Scientific Aff
+      r17-r18   | Roger O..geberg was Assistant Secretary for and Scientific Hea
+      r19       | Roger O.geberg was Assistant Secretary for Health and Scientif
+      r20       | Roger O.geberg was Assistant Secretary for of and Scientific H
+      r21-r57   | Roger O.geberg was Assistant Secretary for Health and Scientif
+      r58-r60   | Roger O. Egeberg was Assistant Secretary for Health and Scient
+      r61-r62   | Roger O.geberg was Assistant Secretary for Health and Scientif
+      r63       | Roger O. Egeberg was Assistant Secretary for Health and Scient
+
+  YOUR LABEL  [X]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 10 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : where is the American professional basketball team which Jalen Jones p
+  MODEL   : 'Jalen Jones played for the Boston Celtics, which is based in Boston, M'
+  GOLD    : Louisiana.
+
+  stable_all 0.54   stable_top3 0.46   cands_top3 3.7   ans_len 18
+
+  shadow prediction, change-points only:
+      r00       | Jalen Jones played for the the the,, based based based based b
+      r01-r02   | Jalen Jones played for the Boston State,,, based based based b
+      r03       | Jalen Jones played for the Dallas State,,, based based based b
+      r04-r05   | Jalen Jones played for the Los Heat,,, based based based based
+      r06       | Jalen Jones played for the Los State,,, based based based base
+      r07-r08   | Jalen Jones played for the Los State,, are based based based b
+      r09       | Jalen Jones played for the Charlotte Heat,, are based based ba
+      r10-r15   | Jalen Jones played for the Los State,, are based based based b
+      r16       | Jalen Jones played for the Los State,, are based based based i
+      r17       | Jalen Jones played for the Charlotte State,, are based based b
+      r18       | Jalen Jones played for the Los State,, are based based in,,,.
+      r19       | Jalen Jones played for the Boston Heat, based are based based 
+      r20-r21   | Jalen Jones played for the Boston Bucks, which are based in Mi
+      r22       | Jalen Jones played for the Boston Heat, which is based in Milw
+      r23       | Jalen Jones played for the Boston Heat, which is based in Bost
+      r24-r28   | Jalen Jones played for the Boston Heat, which is based in Milw
+      r29-r63   | Jalen Jones played for the Boston Celtics, which is based in B
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 11 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : Sir William Walton's 'Crown Imperial Coronation March' was written for
+  MODEL   : "Sir William Walton's 'Crown Imperial Coronation March' was written for"
+  GOLD    : GEORGE VI | Albert, Duke of York | HM King George VI
+
+  stable_all 0.78   stable_top3 0.15   cands_top3 3.7   ans_len 22
+
+  shadow prediction, change-points only:
+      r00-r01   | Sir William Walton's 'Crown Imperial Coronation March' was wri
+      r02-r11   | Sir William Walton's 'rown Imperial Coronation March' was writ
+      r12-r14   | Sir Walton's 'rown Imperial Coronation March' was written for 
+      r15       | Sir Walton's 'rown Imperial Coronation March was written for K
+      r16       | Sir William Walton's 'rown Imperial Coronation March' was writ
+      r17       | Sir Walton's 'rown Imperial Coronation March was written for Q
+      r18-r19   | Sir Walton's 'rown Imperial Coronation March' was written for 
+      r20-r22   | Sir William Walton's 'rown Imperial Coronation March' was writ
+      r23       | Sir William Walton's 'rown Imperial Coronation March was writt
+      r24-r25   | Sir William Walton's 'rown Imperial Coronation March' was writ
+      r26-r27   | Sir Walton's 'rown Imperial Coronation March' was written for 
+      r28-r30   | Sir William Walton's 'rown Imperial Coron March' was written f
+      r31       | Sir Walton's 'rown Imperial Coron March' was written for Queen
+      r32-r33   | Sir William Walton's 'rown Imperial Coron March' was written f
+      r34       | Sir William Walton's 'Crown Imperial Coronation March' was wri
+      r35-r36   | Sir William Walton's 'rown Imperial Coron March' was written f
+      r37       | Sir William Walton's 'rown Imperial Coronation March' was writ
+      r38       | Sir Walton's 'rown Imperial Coronation March was written for Q
+      r39       | Sir William Walton's 'Crown Imperial Coronation March' was wri
+      r40       | Sir Walton's 'rown Imperial Coronation March' was written for 
+      r41       | Sir William Walton's 'rown Imperial Coronation March' was writ
+      r42       | Sir Walton's 'Crown Imperial Coron March' was written for Quee
+      r43       | Sir Walton's 'Crown Imperial Coronation March' was written for
+      r44       | Sir William Walton's 'Crown Imperial Coronation March' was wri
+      r45-r46   | Sir Walton's 'Crown Imperial Coronation March' was written for
+      r47-r48   | Sir Walton's 'rown Imperial Coronation March' was written for 
+      r49       | Sir Walton's 'Crown Imperial Coronation March' was written for
+      r50       | Sir Walton's 'rown Imperial Coronation March' was written for 
+      r51-r63   | Sir William Walton's 'Crown Imperial Coronation March' was wri
+
+  YOUR LABEL  [X]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 12 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : What was the name of Shari Lewis' sassy sock puppet?
+  MODEL   : "Shari Lewis' sassy sock puppet was named Sassy."
+  GOLD    : Lamb Chop. | Lamb Chop | Lamb chops
+
+  stable_all 0.78   stable_top3 0.05   cands_top3 3.7   ans_len 14
+
+  shadow prediction, change-points only:
+      r00       | Shari Lewis' sassy sock was
+      r01       | Shari Lewis' sassy sock puppet was named " "
+      r02-r04   | Shari Lewis' sassy sock puppet was named ".
+      r05-r08   | Shari Lewis' sassy sock puppet was named " "
+      r09-r27   | Shari Lewis' sassy sock puppet was named ".
+      r28       | Shari Lewis' sassy sock puppet was named "..
+      r29       | Shari Lewis' sassy sock puppet was named "assy.
+      r30       | Shari Lewis' sassy sock puppet was named Bassy.
+      r31-r63   | Shari Lewis' sassy sock puppet was named Sassy.
+
+  YOUR LABEL  [X]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 13 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : The Column of Saint Zanobi  is a monumental marble column located just
+  MODEL   : 'The Column of Saint Zanobi is a monumental marble column located just '
+  GOLD    : a minor basilica
+
+  stable_all 0.75   stable_top3 0.33   cands_top3 3.7   ans_len 27
+
+  shadow prediction, change-points only:
+      r00       | The Column of Saint Zanobi is a monumental marble located loca
+      r01-r02   | The Column of Saint Zanobi is a monumental marble column locat
+      r03       | The Column of Saint Zanobi is a monumental marble of located j
+      r04       | The Column of Saint Zanobi is a monumental marble column locat
+      r05-r06   | The Column of Saint Zanobi is a monumental marble of located j
+      r07       | The Column of Saint Zanobi is a monumental marble column locat
+      r08       | The Column of Saint Zanobi is a monumental marble located loca
+      r09       | The Column of Saint Zanobi is a monumental marble column locat
+      r10       | The Column of Saint Z Zobi is Cathedral monumental marble colu
+      r11-r12   | The Column of Saint Zanobi is a monumental marble column locat
+      r13-r14   | The Column of Saint Zanobi is monumental marble column located
+      r15       | The Column of Saint Zanobi is a monumental marble column locat
+      r16-r18   | The Column of Saint Zanobi is monumental marble column located
+      r19       | The Column of Saint Zanobi is a monumental marble column locat
+      r20       | The Column of Saint Zanobi is monumental marble column located
+      r21       | The Column of Saint Zanobi is a monumental marble column locat
+      r22       | The Column of Saint Zanobi is monumental marble column located
+      r23-r24   | The Column of Saint Zanobi is a monumental marble column locat
+      r25       | The Column of Saint obi is monumental marble column located ju
+      r26       | The Column of Saint obi is a monumental marble column located 
+      r27-r28   | The Column of Saintobi is a monumental marble column located j
+      r29-r31   | The Column of Saint obi is a monumental marble column located 
+      r32       | The Column of Saint Zobi is a monumental marble column located
+      r33-r35   | The Column of Saint Zanobi is a monumental marble column locat
+      r36-r37   | The Column of Saint Zobi is a monumental marble column located
+      r38-r40   | The Column of Saint Zanobi is a monumental marble column locat
+      r41       | The Column of Saint Zobi is a monumental marble column located
+      r42-r47   | The Column of Saint Zanobi is a monumental marble column locat
+      r48       | The Column of Saint Zobi is a monumental marble column located
+      r49       | The Column of Saint Zanobi is a monumental marble column locat
+      r50-r51   | The Column of Saint Zobi is a monumental marble column located
+      r52       | The Column of Saint Zanobi is a monumental marble column locat
+      r53-r60   | The Column of Saint Zobi is a monumental marble column located
+      r61       | The Column of Saint Zanobi is a monumental marble column locat
+      r62-r63   | The Column of Saint Zobi is a monumental marble column located
+
+  YOUR LABEL  [X]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 14 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : Brad Elterman is a professional photographer who addressed the rock 'n
+  MODEL   : "Brad Elterman addressed the rock 'n' roll lifestyle of the band Nirvan"
+  GOLD    : its eclectic mix of musical styles
+
+  stable_all 0.65   stable_top3 0.15   cands_top3 5.7   ans_len 19
+
+  shadow prediction, change-points only:
+      r00       | Brad Elterman photographed the rocknn' the rocknn
+      r01       | Brad Elterman is the rock then' the rocknnn' for
+      r02       | Brad Elterman is the rock then' the rocknnn'' for for for
+      r03       | Brad Elterman is the rock then' the rocknnn'' for for for for
+      r04       | Brad Elterman's the rock then'n'nnn'' for for for for
+      r05       | Brad Elterman photographed the rock 'n' roll lifestyle of the 
+      r06-r14   | Brad Elterman addressed the rock 'n' roll lifestyle of the ban
+      r15       | Brad Elterman addressed the rock 'n'' lifestyle of the band Th
+      r16-r26   | Brad Elterman addressed the rockn' roll lifestyle of the band 
+      r27       | Brad Elterman addressed the rock 'n' roll lifestyle of the ban
+      r28       | Brad Elterman addressed the rock 'n roll lifestyle of the band
+      r29-r30   | Brad Elterman addressed the rock 'n' roll lifestyle of the ban
+      r31       | Bradterman addressed the rockn roll lifestyle of the band Nirv
+      r32       | Bradterman addressed the rockn roll lifestyle of band Nirvana
+      r33       | Bradterman addressed the rock 'n roll lifestyle of band Nirvan
+      r34-r36   | Bradterman addressed the rockn roll lifestyle of band Nirvana
+      r37       | Bradterman addressed the rock 'n roll lifestyle of the band Ni
+      r38       | Brad Elterman addressed the rockn roll lifestyle of band Nirva
+      r39-r40   | Bradterman addressed the rockn roll lifestyle of band Nirvana
+      r41       | Brad Elterman addressed the rockn roll lifestyle of band Nirva
+      r42       | Brad Elterman addressed the rock 'n roll lifestyle of band Nir
+      r43-r44   | Bradterman addressed the rockn roll lifestyle of band Nirvana
+      r45-r46   | Bradterman addressed the rock 'n roll lifestyle of band Nirvan
+      r47-r48   | Bradter addressed the rock 'n roll lifestyle of band Nirvana.
+      r49-r50   | Bradterman addressed the rock 'n roll lifestyle of band Nirvan
+      r51       | Brad Elterman addressed the rock 'n roll lifestyle of the band
+      r52       | Brad Elter addressed the rock 'n roll lifestyle of band Nirvan
+      r53-r54   | Bradterman addressed the rock 'n roll lifestyle of band Nirvan
+      r55       | Brad Elterman addressed the rock 'n roll lifestyle of band Nir
+      r56-r62   | Brad Elterman addressed the rock 'n roll lifestyle of the band
+      r63       | Brad Elterman addressed the rock 'n' roll lifestyle of the ban
+
+  YOUR LABEL  [X]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 15 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : Graham Linehan was the creator of the Ash Atalla-produced sitcom for w
+  MODEL   : "Graham Linehan created 'Bottom' for BBC Two."
+  GOLD    : Channel 4
+
+  stable_all 0.38   stable_top3 0.13   cands_top3 5.3   ans_len 12
+
+  shadow prediction, change-points only:
+      r00       | Graham Linehan was the creator of the
+      r01       | Graham Linehan was the creator of the sitcom sitcom sitcom sit
+      r02       | Graham Linehan created the creator of the sitcom sitcom " sitc
+      r03       | Graham Linehan was the creator of the sitcom sitcom " sitcom f
+      r04-r05   | Graham Linehan created the creator of the sitcom sitcom for si
+      r06-r07   | Graham Linehan created the creator of the sitcom sitcom for fo
+      r08       | Graham Linehan created the creator of the sitcom for for for f
+      r09       | Graham Linehan created the creator of the sitcom sitcom for fo
+      r10-r11   | Graham Linehan created the creator of " sitcom sitcom for for 
+      r12       | Graham Linehan created "The of " sitcom for for for for BBC BB
+      r13       | Graham Linehan created "The of " for for for for for BBC
+      r14       | Graham Linehan created "The of " sitcom sitcom for for BBC BBC
+      r15-r16   | Graham Linehan created "The of" for for for BBC BBC BBC
+      r17       | Graham Linehan created "The of" for for for BBC BBC
+      r18       | Graham Linehan created "The Line for for for for BBC
+      r19       | Graham Linehan created " sitcom Line for for for BBC BBC
+      r20       | Graham Linehan created " sitcom Line" for for BBC BBC
+      r21-r22   | Graham Linehan created "The for for for BBC BBC.
+      r23       | Graham Linehan created "The for for for BBC..
+      r24       | Graham Linehan created 'The for for BBC..
+      r25       | Graham Linehan created "The" for BBC BBC.
+      r26       | Graham Linehan created "The" for BBC4.
+      r27       | Graham Linehan created ''s" for BBC Two.
+      r28       | Graham Linehan created 'adder' for BBC Two.
+      r29       | Graham Linehan created ' Line' for BBC Two.
+      r30-r63   | Graham Linehan created 'Bottom' for BBC Two.
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 16 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : The film 'The Music Lovers' was about which composer?
+  MODEL   : "The film 'The Music Lovers' was about composer Johann Sebastian Bach."
+  GOLD    : Tchaikovsky | Tsjajkovskij | Tchaicovski
+
+  stable_all 0.61   stable_top3 0.34   cands_top3 4.3   ans_len 15
+
+  shadow prediction, change-points only:
+      r00       | The film 'The is a' is composer composer composer composer.
+      r01       | The film 'The Music Lovers' is about composer composer compose
+      r02-r03   | The film 'The Music Lovers' is about the composer composer com
+      r04       | The film 'The Music Lovers' is about composer composer compose
+      r05       | The film 'The Music Lovers' is about the composer composer com
+      r06-r07   | The film 'The Music Lovers' is about the composer composer,...
+      r08       | The film 'The Music Lovers' is about the composer composer....
+      r09-r16   | The film 'The Music Lovers' is about the composer composer...
+      r17-r19   | The film 'The Music Lovers' is about composer composer compose
+      r20       | The film 'The Music Lovers' was about composer composer compos
+      r21-r23   | The film 'The Music Lovers' was about composer composer....
+      r24       | The film 'The Music Lovers' was about composer composer...
+      r25-r26   | The film 'The Music Lovers' was about composer Johann Strauss.
+      r27       | The film 'The Music Lovers' is about composer Johann vanenberg
+      r28-r29   | The film 'The Music Lovers' was about composer Johann vanenber
+      r30-r63   | The film 'The Music Lovers' was about composer Johann Sebastia
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 17 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : What African animal is known for laughing?
+  MODEL   : 'The African animal known for laughing is the mandrill.'
+  GOLD    : Hyena | Hiena | Hyeena
+
+  stable_all 0.74   stable_top3 0.37   cands_top3 3.7   ans_len 12
+
+  shadow prediction, change-points only:
+      r00       | The African animal known for for is
+      r01       | The African animal known for laughing is the
+      r02       | The African animal known for laughing is the the...
+      r03       | The African animal known for laughing is the theerk...
+      r04-r12   | The African animal known for laughing is the manderk...
+      r13       | The African animal known for laughing is the hyerk...
+      r14-r15   | The African animal known for laughing is the manderk...
+      r16-r17   | The African animal known for laughing is the hyerk...
+      r18-r19   | The African animal known for laughing is the hyerk..
+      r20-r25   | The African animal known for laughing is the hyerk...
+      r26       | The African animal known for laughing is the manderk..
+      r27       | The African animal known for laughing is the manderk.
+      r28-r30   | The African animal known for laughing is the mand monkey.
+      r31-r63   | The African animal known for laughing is the mandrill.
+
+  YOUR LABEL  [I]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 18 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : What country is the singer from, who duets with Dave Hemingway on the 
+  MODEL   : 'Australia'
+  GOLD    : Northern Irish
+
+  stable_all 0.28   stable_top3 0.28   cands_top3 2.5   ans_len 2
+
+  shadow prediction, change-points only:
+      r00       | The singer who duets with Dave Hemingway on the songAA Little 
+      r01       | The singer who duets with HemAAA Time
+      r02-r04   | The singer who duets withA
+      r05       | The singer who duets with
+      r06       | The singer who duets withA
+      r07       | The singer who duets with
+      r08       | The singer who duets
+      r09       | The singer is duets
+      r10       | The singer is du
+      r11       | The singer is
+      r12       | The singer is from
+      r13       | The singer is
+      r14       | The singer is is
+      r15-r19   | The singer is
+      r20       | The. is
+      r21       | The is
+      r22-r23   | The
+      r24-r63   | Australia
+
+  YOUR LABEL  [L]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 19 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : What was the birth name of the start of Hwarang: The Poet Warrior Yout
+  MODEL   : 'Yuna.'
+  GOLD    : Park Yong-gyu
+
+  stable_all 0.07   stable_top3 0.03   cands_top3 4.0   ans_len 4
+
+  shadow prediction, change-points only:
+      r00       | Thewar name of thewar of Hwarwar:: The Warrior is
+      r01       | Thewar name of the of Hwarwar
+      r02-r04   | Thewar name of the H
+      r05       | Thewar name of the of Hwar
+      r06       | Thewar name of the Hwar
+      r07       | Thewar name of the H
+      r08       | Hwar name of
+      r09       | Hwar name of H
+      r10       | Hwar name of
+      r11-r12   | Hwar name
+      r13-r22   | Hwarang
+      r23       | Hwarang.
+      r24       | Hwarang
+      r25-r27   | Hae
+      r28       | H
+      r29       | Hwar.
+      r30       | Yang.
+      r31-r63   | Yuna.
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 20 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : In the British experimental jazz band Polar Bear, who handles digital 
+  MODEL   : 'Mark Burgess.'
+  GOLD    : Leafcutter John
+
+  stable_all 0.19   stable_top3 0.11   cands_top3 4.3   ans_len 4
+
+  shadow prediction, change-points only:
+      r00       | In the Bear Bear, Bear Bear Bear Bear Bear
+      r01-r02   | In Bear Bear,, Bear Bear Bear
+      r03-r09   | In Bear Bear,, Bear Bear
+      r10-r11   | In Bear Bear,, Bear
+      r12-r13   | In Bear Bear, digital
+      r14       | In Bear Bear,
+      r15       | In Bear Bear, digital
+      r16       | D Bear.
+      r17-r18   | In Bear.
+      r19-r20   | D Bear.
+      r21       | Mark Bear.
+      r22       | Tom Bear
+      r23-r24   | Mark G
+      r25-r28   | Mark.
+      r29       | Mark G.
+      r30       | Mark Cook.
+      r31-r63   | Mark Burgess.
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 21 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : What is the shared country of ancestry between Art Laboe and Scout Tuf
+  MODEL   : 'Art Laboe and Scout Tufankjian share no known country of ancestry.'
+  GOLD    : Armenian
+
+  stable_all 0.69   stable_top3 0.21   cands_top3 5.0   ans_len 17
+
+  shadow prediction, change-points only:
+      r00       | Art Laboe and ancestry Tuf Laboe are Scout Tuf ancestry ancest
+      r01       | Art Laboe and Scout Tufank ancestry share a ancestry ancestry 
+      r02       | Art Laboe and Scout Tufank Scout shareuf ancestry ancestry anc
+      r03       | Art Laboe and Scout Tufank ancestry share auf ancestry ancestr
+      r04       | Art Laboe and Scout Tufankjian share a Armenian ancestry ances   <-- GOLD
+      r05       | Art Laboe and Scout Tufankjian share both Armenian ancestry an
+      r06-r07   | Art Laboe and Scout Tufankjian share a Armenian ancestry ances
+      r08       | Art Laboe and Scout Tufankjian share both Armenian ancestry an
+      r09       | Art Laboe and Scout Tufmenjian share both Armenian ancestry an
+      r10       | Art Laboe and Scout Tufmenjian share no share country of ances
+      r11       | Art Laboe and Scout Tufmenjian share a shared country of ances
+      r12       | Art Laboe and Scout Tufmenjian share the shared country of anc
+      r13       | Art Laboe and Scout Tufmenjian share the same country of ances
+      r14       | Art Laboe and Scout Tufjian share the same country of ancestry
+      r15-r25   | Art Laboe and Scoutufjian share the same country of ancestry.
+      r26       | Art Laboe and Scout Tufjian share the same country of ancestry
+      r27-r30   | Art Laboe and Scout Tufankjian share no common country of ance
+      r31       | Art Laboe and Scout Tufankjian share no known country of ances
+      r32-r33   | Art Laboe and Scoutufankjian share no known country of ancestr
+      r34-r38   | Art Laboe and Scout Tufankjian share no known country of ances
+      r39       | Art Laboe and Scoutufankjian share no known country of ancestr
+      r40-r56   | Art Laboe and Scout Tufankjian share no known country of ances
+      r57-r58   | Art Laboe and Scoutufankjian share no known country of ancestr
+      r59-r63   | Art Laboe and Scout Tufankjian share no known country of ances
+
+  YOUR LABEL  [I]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 22 / 60 --------------------------------------------------------
+  dataset : commonsenseqa
+  Q       : What do you write letter in in America?
+  MODEL   : 'C. envelope'
+  GOLD    : english alphabet | D
+
+  stable_all 0.98   stable_top3 0.98   cands_top3 1.7   ans_len 4
+
+  shadow prediction, change-points only:
+      r00       | C best envelope is C. envelope.
+      r01-r63   | C. envelope
+
+  YOUR LABEL  [L]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 23 / 60 --------------------------------------------------------
+  dataset : commonsenseqa
+  Q       : While John Candy and Dan Aykroyd didn't run into a gazelle, you'd have
+  MODEL   : 'C. open plain'
+  GOLD    : great outdoors | E
+
+  stable_all 0.84   stable_top3 0.93   cands_top3 1.3   ans_len 5
+
+  shadow prediction, change-points only:
+      r00       | The best open plain . plain. gaz.
+      r01-r03   | C. open plain gaz
+      r04-r09   | C. open plain
+      r10       | C. open
+      r11-r20   | C. open plain
+      r21       | C. open
+      r22       | C. open plain
+      r23       | C. open
+      r24-r25   | C. open plain
+      r26       | C. open
+      r27-r28   | C. open plain
+      r29-r30   | C. open
+      r31-r32   | C. open plain
+      r33-r34   | C. open
+      r35-r63   | C. open plain
+
+  YOUR LABEL  [L]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 24 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : What was Sweeney Todd's occupation in Stephen Sondheim's work?
+  MODEL   : 'Sweeney Todd was a street singer.'
+  GOLD    : Barber | Barbershop (hair) | Tonsorial
+
+  stable_all 0.42   stable_top3 0.21   cands_top3 5.0   ans_len 9
+
+  shadow prediction, change-points only:
+      r00       | In Sweeney Todd is a's work in's's's's Todd
+      r01       | Sweeney Todd is occupation Stephenond in's's work "
+      r02       | Sweeney Todd is occupation in in in's's work "
+      r03       | Sweeney Todd is occupation in in in's work's a a
+      r04-r08   | Sweeney Todd is a S in in's work
+      r09       | Sweeney Todd is a S in in's
+      r10       | Sweeney Todd is a S in.'s
+      r11       | Sweeney Todd is a S in in's
+      r12       | Sweeney Todd is a barber in.'s   <-- GOLD
+      r13       | Sweeney Todd is a S in in's
+      r14       | Sweeney Todd is a barber in. in
+      r15       | Sweeney Todd is a barber in..
+      r16       | Sweeney Todd is a singer..
+      r17-r21   | Sweeney Todd is a barber..
+      r22-r24   | Sweeney Todd is a barber...
+      r25       | Sweeney Todd was a barber...
+      r26       | Sweeney Todd is a barber..
+      r27       | Sweeney Todd was a barber..
+      r28-r30   | Sweeney Todd was a bar singer.
+      r31-r63   | Sweeney Todd was a street singer.
+
+  YOUR LABEL  [I]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 25 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : Which late American musician, who pioneered the styles of rock and rol
+  MODEL   : 'Elvis Presley'
+  GOLD    : Gene Vincent | Gene Vincent & the Blue Caps | Blue-caps
+
+  stable_all 0.63   stable_top3 0.68   cands_top3 2.0   ans_len 5
+
+  shadow prediction, change-points only:
+      r00       | Thevis Pres Cr,
+      r01       | Elvis Pres Cr
+      r02-r03   | Elvis Presley
+      r04-r27   | Elvis Pres
+      r28-r63   | Elvis Presley
+
+  YOUR LABEL  [L]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 26 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : Stella Maxwell has been a model for a famous fashion shown since when?
+  MODEL   : 'Stella Maxwell has been a model for a famous fashion show since 1999.'
+  GOLD    : Since 2015
+
+  stable_all 0.65   stable_top3 0.34   cands_top3 3.3   ans_len 20
+
+  shadow prediction, change-points only:
+      r00       | Stella Maxwell has been a model for the since since since sinc
+      r01-r02   | Stella Maxwell has been a model for the since since show since
+      r03       | Stella Maxwell has been a model for the fashion since show sin
+      r04       | Stella Maxwell has been a model for the fashion fashion show s
+      r05       | Stella Maxwell has been a model for the famous fashion show si
+      r06       | Stella Maxwell has been model for the famous fashion show sinc
+      r07-r08   | Stella Maxwell has been Victoria model for the famous fashion 
+      r09       | Stella Maxwell has been a model for the famous fashion show si
+      r10-r11   | Stella Maxwell has been model for a famous fashion show since 
+      r12       | Stella Maxwell has been the model for a famous fashion show si
+      r13       | Stella Maxwell has been a model for a famous fashion show sinc
+      r14-r18   | Stella Maxwell has been in model for a famous fashion show sin
+      r19       | Stella Maxwell has been model for a famous fashion show since1
+      r20       | Stella Maxwell has been model for a famous fashion show since 
+      r21-r27   | Stella Maxwell has been model for a famous fashion show since9
+      r28-r31   | Stella Maxwell has been model for a famous fashion show since 
+      r32-r63   | Stella Maxwell has been a model for a famous fashion show sinc
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 27 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : In Italian cookery, what name is given to soft dumplings made from sem
+  MODEL   : 'Arancini'
+  GOLD    : Gnocchi | Gnocco | Gnocchetti
+
+  stable_all 0.39   stable_top3 0.34   cands_top3 3.7   ans_len 4
+
+  shadow prediction, change-points only:
+      r00       | In Italian cook,, the Italianplings made from sem sem
+      r01       | P Italianini.
+      r02       | F Italianini.
+      r03       | P Italianini.
+      r04-r05   | F Italianini.
+      r06       | P Italianini.
+      r07-r09   | Pocini.
+      r10       | Focini.
+      r11       | Pocini.
+      r12-r13   | Focini.
+      r14-r25   | Focini
+      r26       | Pocini
+      r27       | Foliini
+      r28-r29   | Poliini
+      r30       | Bancini
+      r31-r63   | Arancini
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 28 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : Who replaced Iraqi President Ahmed Hassan al-Bakr in July 1979?
+  MODEL   : 'Sadd Hussein.'
+  GOLD    : Saddam Hussein | Sadaam | Saddam Hussein Al-Takriti
+
+  stable_all 0.05   stable_top3 0.03   cands_top3 4.3   ans_len 5
+
+  shadow prediction, change-points only:
+      r00       | Iamed Hassan al al al al was President al al al al al al in in
+      r01       | Iamed Hassan al al al al Ahmed President Ahmed al al al-Br in 
+      r02       | Iamed Hassan al al al al al President Ahmed al al al-B-B in in
+      r03       | Iamed Hassan al al al-B al President President al Hassan-B-B-B
+      r04       | Iamed Hassan al al al al al President President al Hassan al-B
+      r05       | Iamed Hassan al al al-B Ahmed President Ahmed al al al-B-B in 
+      r06       | Iamed Hassan al al al al Ahmed President Ahmed Hassan al al-Br
+      r07       | Samed Hassan al al al succeeded President President Ahmed Hass
+      r08       | Iamed Hassan al al al. Ahmed President Hassan al-B-B July July
+      r09       | Iamed Hassan al al al. Ahmed al-B-B
+      r10       | S Hussein Hassan al al al Ahmed Ahmed al al-B
+      r11-r12   | S Hussein Hassan al al al.
+      r13       | S Hussein al al al al.
+      r14       | Mu Hussein al al al.
+      r15       | Mu Hussein al al..
+      r16       | S Hussein al al..
+      r17-r22   | Mu Hussein al al..
+      r23       | Mu Hussein al al...
+      r24       | Mu Hussein al al..
+      r25       | Mu Hussein al...
+      r26       | H Hussein...
+      r27       | H Hussein..
+      r28       | H Hussein Sad.
+      r29       | H Hussein Hussein.
+      r30       | S Saddam Hussein.   <-- GOLD
+      r31-r63   | Sadd Hussein.
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 29 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : John Lennon had two number one hits in 1981. 'Imagine' was one, what w
+  MODEL   : '"Imagine"'
+  GOLD    : 'WOMAN' | A women | A woman
+
+  stable_all 0.18   stable_top3 0.06   cands_top3 6.3   ans_len 4
+
+  shadow prediction, change-points only:
+      r00       | John Lennon's other number
+      r01-r02   | John other number number
+      r03       | The other number one
+      r04-r05   | The other number number
+      r06-r07   | The other number one
+      r08       | John other number "
+      r09       | The other number one
+      r10-r11   | The other number "
+      r12-r13   | The other number
+      r14       | " other number
+      r15-r16   | " other number "
+      r17       | " other number '
+      r18       | " other You "
+      r19-r21   | " other You '
+      r22-r23   | "olution You '
+      r24-r25   | "olution You
+      r26       | "olution a
+      r27       | "Hey"
+      r28       | " Karma"
+      r29       | "Imagine'.
+      r30-r63   | "Imagine"
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 30 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : What word could connect potatoes with bicycles?
+  MODEL   : 'Wheels.'
+  GOLD    : RALEIGH | Raleigh, NC | Downtown Raleigh
+
+  stable_all 0.30   stable_top3 0.38   cands_top3 2.7   ans_len 4
+
+  shadow prediction, change-points only:
+      r00       | " word. bicycles bicycles
+      r01-r03   | Wheels.
+      r04       | Pedels.
+      r05       | Wheels.
+      r06       | "els.
+      r07       | Wheels.
+      r08-r09   | Pedels.
+      r10       | Tels.
+      r11-r16   | Pedels.
+      r17       | Wheels.
+      r18-r27   | Pedels.
+      r28       | Wheels
+      r29-r63   | Wheels.
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 31 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : Apart from white, what colour are the other two ‘triangles’ on the BMW
+  MODEL   : 'Red'
+  GOLD    : Blue | Rgb(0, 0, 255) | Orphan blue
+
+  stable_all 0.33   stable_top3 0.33   cands_top3 3.0   ans_len 2
+
+  shadow prediction, change-points only:
+      r00       | The other twotritriangles' on the logo logo are
+      r01-r07   | The other two 'triangles' on the logo are
+      r08-r10   | The other two 'triangles' on the logo
+      r11       | The other two 'triangles' on the logo are
+      r12       | The other two 'triangles
+      r13-r15   | The other twotriangles
+      r16       | The other two
+      r17-r19   | Red other
+      r20-r21   | Red and
+      r22-r23   | Red.
+      r24-r63   | Red
+
+  YOUR LABEL  [L]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 32 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : Who sang with Serge Gainsbourg on the hit Je t'aime?
+  MODEL   : 'France Gall.'
+  GOLD    : Jane Birkin | JaneBirkin
+
+  stable_all 0.15   stable_top3 0.19   cands_top3 4.3   ans_len 4
+
+  shadow prediction, change-points only:
+      r00       | Theerge Gains sang sang with on
+      r01       | Sergeine sang sang with with on
+      r02       | Jeanergeine sang sang with
+      r03       | Jeanyline sang sang with Serge on
+      r04       | Jeanyline sang sang with
+      r05       | Jeanyline sang sang with on
+      r06       | Jeanyline sang sang with Serge on
+      r07-r10   | Jeanyline sang sang with
+      r11       | Jeanyline. with
+      r12-r14   | Jeanyline.
+      r15-r16   | Jeanyl.
+      r17-r19   | Jeanyl..
+      r20-r26   | Yyl..
+      r27       | Annieyl..
+      r28       | Annie Gall.
+      r29       | Annieyl.
+      r30       | Tom Gall.
+      r31-r63   | France Gall.
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 33 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : High Force is in County Durham but what is it
+  MODEL   : 'High Force is a village in County Durham.'
+  GOLD    : A waterfall | Şellale | The Waterfall
+
+  stable_all 0.67   stable_top3 0.49   cands_top3 2.0   ans_len 10
+
+  shadow prediction, change-points only:
+      r00       | High Force is a village in in Durham Durham Durham Durham Durh
+      r01-r03   | High Force is a historic in in Durham Durham Durham Durham Dur
+      r04       | High Force is a historic in in Durham Durham Durham England Du
+      r05       | High Force is a historic in in Durham Durham Durham Durham Dur
+      r06       | High Force is a village in in Durham Durham Durham England Dur
+      r07       | High Force is a historic in in Durham Durham Durham England Du
+      r08       | High Force is a historic in in Durham Durham Durham Durham Dur
+      r09       | High Force is a village in in Durham Durham Durham England Dur
+      r10       | High Force is a village in in Durham Durham Durham Durham Durh
+      r11       | High Force is a village in in Durham Durham England England Du
+      r12       | High Force is a village in in Durham Durham Durham Durham
+      r13       | High Force is a village in in Durham Durham Durham England
+      r14       | High Force is a village in in Durham Durham England Durham
+      r15       | High Force is a village in in Durham Durham, Durham
+      r16       | High Force is a historic in in Durham Durham Durham England
+      r17       | High Force is a historic in in Durham Durham Durham Durham
+      r18-r19   | High Force is a village in in Durham Durham Durham Durham
+      r20       | High Force is a village in in Durham Durham, England
+      r21       | High Force is a village in in Durham Durham,
+      r22-r23   | High Force is a village in in Durham Durham, England
+      r24       | High Force is a village in in Durham Durham England
+      r25       | High Force is a village in in Durham Durham
+      r26       | High Force is a village in. Durham.
+      r27-r30   | High Force is a village in County Durham.
+      r31       | High Force is a village in County Durham
+      r32-r63   | High Force is a village in County Durham.
+
+  YOUR LABEL  [L]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 34 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : What nationality was the noble house that employed Frntisek Rint to or
+  MODEL   : 'The noble house that employed Frntisek Rint to organize the human bone'
+  GOLD    : Czech (Bohemian) and German (Franconian)
+
+  stable_all 0.72   stable_top3 0.05   cands_top3 4.0   ans_len 37
+
+  shadow prediction, change-points only:
+      r00       | The noble house that employed Frntntk Rint to the the human in
+      r01-r02   | The noble house that employed Frntisek Rint to organize the hu
+      r03-r06   | The noble house that employed Frntk Rint to organize the human
+      r07       | The noble house that employed Frnt k Rint to organize the huma
+      r08-r09   | The noble house that employed Frnt Czechk Rint to organize the
+      r10       | The noble house that employed Frnt k Rint to organize the huma
+      r11-r12   | The noble house that employed Frnt Czechk Rint to organize the
+      r13       | The noble house that employed Frnt k Rint to organize human bo
+      r14-r16   | The noble house that employed Frnt Czechk Rint to organize hum
+      r17-r18   | The noble house that employed Frnt Czechk Rint to organize Sed
+      r19-r25   | The noble house that employed Frnt Czechk Rint to organize hum
+      r26-r27   | The noble house that employed Frntěk Rint to organize human bo
+      r28-r29   | The noble house that employed Frnt�k Rint to organize human bo
+      r30       | The noble house that employed Frnt Bok Rint to organize human 
+      r31       | The noble house that employed Frnt�k Rint to organize human bo
+      r32       | The noble house that employed Frant�k Rint to organize human b
+      r33       | The noble house that employed Fr Fr�k Rint to organize human b
+      r34       | The noble house that employed Fr Fr�kint to organize human bon
+      r35       | The noble house that employed Frant�kint to organize human bon
+      r36       | The noble house that employed Fr Fr�k Rint to organize human b
+      r37       | The noble house that employed Fr Fr�kint to organize human bon
+      r38       | The noble house that employed Fr Fr kint to organize human bon
+      r39       | The noble house that employed Frant kint to organize human bon
+      r40       | The noble house that employed Fr Fr�kint to organize human bon
+      r41       | The noble house that employed Fr Fr kint to organize human bon
+      r42       | The noble house that employed Franti�kint to organize human bo
+      r43-r45   | The noble house that employed Frant�kint to organize human bon
+      r46       | The noble house that employed Franti�kint to organize human bo
+      r47-r48   | The noble house that employed Frant�kint to organize human bon
+      r49-r50   | The noble house that employed Frantkint to organize human bone
+      r51-r53   | The noble house that employed Frant kint to organize human bon
+      r54       | The noble house that employed Fr kint to organize human bones 
+      r55-r59   | The noble house that employed Frkint to organize human bones i
+      r60       | The noble house that employed Fr kint to organize human bones 
+      r61       | The noble house that employed Frkint to organize human bones i
+      r62       | The noble house that employed Fr kint to organize human bones 
+      r63       | The noble house that employed Frisekint to organize human bone
+
+  YOUR LABEL  [X]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 35 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : The battle in which Giuseppe Arimondi lost his life secured what for E
+  MODEL   : 'The battle in which Giuseppe Arimondi lost his life, the Battle of Eri'
+  GOLD    : sovereignty
+
+  stable_all 0.65   stable_top3 0.68   cands_top3 2.7   ans_len 29
+
+  shadow prediction, change-points only:
+      r00       | Theuseppe inim Giuseppe Arimondi lost his life, the the the th
+      r01-r03   | The battle in which Giuseppe Arimondi lost his life, the Battl
+      r04       | The battle in which Giuseppe Arondondi lost his life, the Batt
+      r05-r06   | The battle in whichuseppe Arimondi lost his life, the Battle o
+      r07       | The battle in whichuseppe Arim Iti lost his life, the Battle o
+      r08-r09   | The battle in which useppe Arimondi lost his life, the Battle 
+      r10-r11   | The battle in whichuseppe Arimondi lost his life, the Battle o
+      r12       | The battle in whichuseppe Aragnondi lost Ab life, the Battle o
+      r13       | The battle in whichuseppe Dondi lost his life, the Battle of t
+      r14       | The battle in whichuseppeondi lost his life, the Battle of Adr
+      r15       | The battle in whichuseppe Ar Abondi lost life was the Battle o
+      r16       | The battle in whichuseppe ondi lost life, the Battle of Adrit 
+      r17       | The battle in whichuseppeondi lost1 life, the Battle of Adrit,
+      r18       | The battle in whichuseppeond Italy lost life, the Battle of Ad
+      r19       | The battle in whichuseppesinond Italy lost Italian life, the B
+      r20       | The battle in which Giuseppeileondi lost life, the Battle of A
+      r21       | The battle whichuseppeimond Italy lost life, Battle of Adritwa
+      r22       | The battle whichuseppe Itond Italy lost life, Battle of Adritw
+      r23       | The battle whichuseppeond Italy lost life, Battle of Adritwa, 
+      r24       | The battle in whichuseppeond lost life, Battle of Adritwa, sec
+      r25-r27   | The battle whichuseppeondi lost life, the Battle of Adritwa, s
+      r28       | The battle whichuseppeondi lost life, the Battle of Entritwa, 
+      r29       | The battle whichuseppeondi lost life, the Battle of Adritwa, s
+      r30       | The battle in which Giuseppeondi lost life, Battle of Eritrea,
+      r31-r34   | The battle in which Giuseppeondi lost life, the Battle of Erit
+      r35       | The battle in which Giuseppeimondi lost life, the Battle of Er
+      r36-r37   | The battle in which Giuseppeondi lost life, the Battle of Erit
+      r38-r39   | The battle in which Giuseppeimondi lost life, the Battle of Er
+      r40       | The battle in which Giuseppeondi lost life, the Battle of Erit
+      r41-r43   | The battle in which Giuseppeimondi lost life, the Battle of Er
+      r44       | The battle in which Giuseppeimondi lost his life, the Battle o
+      r45-r46   | The battle in which Giuseppeimondi lost life, the Battle of Er
+      r47       | The battle in which Giuseppeondi lost life, the Battle of Erit
+      r48-r55   | The battle in which Giuseppeimondi lost life, the Battle of Er
+      r56-r60   | The battle in which Giuseppeimondi lost his life, the Battle o
+      r61-r63   | The battle in which Giuseppe Arimondi lost his life, the Battl
+
+  YOUR LABEL  [X]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 36 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : Which dog is considered a giant dog breed, the  Leonberger or the Bass
+  MODEL   : 'The Leonberger is considered a giant dog breed.'
+  GOLD    : The Leonberger is a giant dog breed.
+
+  stable_all 0.93   stable_top3 0.89   cands_top3 1.3   ans_len 11
+
+  shadow prediction, change-points only:
+      r00       | The Leonberger isound a giant giant giant.
+      r01       | The Leonberger isound a giant giant breed.
+      r02       | The Leonberger is considered a giant dog breed.oundound
+      r03       | The Leonberger is considered a giant dog breed.
+      r04-r07   | The Leonberger is considered a giant dog breed.assetassetoundo
+      r08       | The Leonberger is considered a giant dog breed.assetoundound
+      r09       | The Leonberger is considered a giant dog breed.oundound
+      r10-r63   | The Leonberger is considered a giant dog breed.
+
+  YOUR LABEL  [L]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 37 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : The Collection at RiverPark is anchored by Target and an American supe
+  MODEL   : 'The Collection at RiverPark is anchored by Target and Whole Foods, whi'
+  GOLD    : hydrogenated
+
+  stable_all 0.62   stable_top3 0.47   cands_top3 3.7   ans_len 21
+
+  shadow prediction, change-points only:
+      r00       | The Collection at RiverPark is anchored by Target and American
+      r01       | The Collection at RiverPark is anchored by Target and an Ameri
+      r02-r17   | The Collection at RiverPark is anchored by Target and Whole Am
+      r18-r28   | The Collection at RiverPark is anchored by Target and Whole Fo
+      r29       | The Collection at Park is anchored by Target and Whole Foods, 
+      r30-r63   | The Collection at RiverPark is anchored by Target and Whole Fo
+
+  YOUR LABEL  [X]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 38 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : What was the maiden name of Billie Jean King before she married Lawren
+  MODEL   : "Billie Jean King's maiden name was Billie Jean King."
+  GOLD    : Moffit | Moffitt
+
+  stable_all 0.82   stable_top3 0.38   cands_top3 2.7   ans_len 13
+
+  shadow prediction, change-points only:
+      r00       | Billie Jean King's maiden Jean Jean Jean Jean Jean Jean
+      r01-r03   | Billie Jean King's maiden name was Billie Jean Jean. Jean
+      r04-r05   | Billie Jean King's maiden name was Billie Jean Jean..
+      r06       | Billie Jean King's maiden name was Billie Jean King..
+      r07       | Billie Jean King's maiden name was Billie Jean King.
+      r08       | Billie Jean King's maiden name was Billie Jean King..
+      r09       | Billie Jean King's maiden name was Billie Jean King.
+      r10-r21   | Billie Jean King's maiden name was Billie Jean King..
+      r22-r27   | Billie Jean King's maiden name was Billie Jean Jean..
+      r28       | Billie Jean King's maiden name was Billie Jean Jean.
+      r29-r63   | Billie Jean King's maiden name was Billie Jean King.
+
+  YOUR LABEL  [X]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 39 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : What apartment complex originally constructed in 1927 is included in M
+  MODEL   : 'The apartment complex originally constructed in 1927 and included in M'
+  GOLD    : Tudor City
+
+  stable_all 0.66   stable_top3 0.06   cands_top3 5.3   ans_len 26
+
+  shadow prediction, change-points only:
+      r00       | The apartment complex originally in in 19277 in Manhattan Manh
+      r01       | The apartment complex originally constructed in 19277 in in Ma
+      r02-r03   | The apartment complex originally constructed in 1927 and inclu
+      r04-r06   | The apartment complex originally constructed in 1927 and is in
+      r07-r12   | The apartment complex originally constructed in 1927 and inclu
+      r13-r15   | The apartment complex originally constructed in 927 and includ
+      r16-r17   | The apartment complex originally constructed in 1927 and in in
+      r18       | The apartment complex originally constructed in 1927 and inclu
+      r19-r27   | The apartment complex originally constructed in 927 and includ
+      r28-r30   | The apartment complex originally constructed in927 and include
+      r31       | The apartment complex originally constructed in1927 and includ
+      r32-r63   | The apartment complex originally constructed in 1927 and inclu
+
+  YOUR LABEL  [X]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 40 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : Who was confused about the difference between chicken and tuna?
+  MODEL   : 'Me.'
+  GOLD    : Jessica Simpson | Joe Simpson (manager) | Joe Pimpson
+
+  stable_all 0.14   stable_top3 0.14   cands_top3 4.3   ans_len 3
+
+  shadow prediction, change-points only:
+      r00       | The was confused confused the difference difference difference
+      r01       | The was confused about about the
+      r02       | The was confused about confusion the
+      r03       | The was was about the the
+      r04       | The was was about confusion the difference
+      r05       | The was was about about the
+      r06       | The was was about about the difference
+      r07       | The was confused about about the
+      r08       | The was was about about the
+      r09       | The was confused confused about
+      r10-r11   | The was was about about
+      r12       | The question was about about the
+      r13       | The was was about about
+      r14       | The was was about
+      r15       | The one was about
+      r16       | The was was
+      r17       | The one was
+      r18       | The was was
+      r19       | The one was
+      r20-r21   | No one confused
+      r22       | You..
+      r23       | I..
+      r24       | You..
+      r25       | I..
+      r26-r27   | You..
+      r28       | No..
+      r29-r63   | Me.
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 41 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : Which 2004 film was released with the advertising tagline “A romantic 
+  MODEL   : 'Zombie.'
+  GOLD    : Shaun of the Dead | Rom-zom-com | Shawn of the dead
+
+  stable_all 0.43   stable_top3 0.51   cands_top3 4.3   ans_len 4
+
+  shadow prediction, change-points only:
+      r00       | The 2004 film released –
+      r01       | " 200
+      r02-r03   | " 20
+      r04       | "Dead2
+      r05-r06   | "Dead.
+      r07       | "Dead is
+      r08-r11   | "Dead.
+      r12       | "Dead is
+      r13-r14   | "Dead.
+      r15       | "Z.
+      r16-r18   | "Dead.
+      r19-r24   | "Z.
+      r25       | ZZ.
+      r26-r27   | Zomb.
+      r28       | Z..
+      r29       | Zbreak.
+      r30       | Z僵尸.
+      r31-r63   | Zombie.
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 42 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : Who produced the 1998 British comedy starring the director of the feat
+  MODEL   : 'The 1998 British comedy "The Mask" starring Terry Gilliam, who also di'
+  GOLD    : Matthew Vaughn
+
+  stable_all 0.40   stable_top3 0.25   cands_top3 5.3   ans_len 36
+
+  shadow prediction, change-points only:
+      r00       | The 1998 British comedy starring starring the of the the the t
+      r01       | The 1998 British comedy starring " the of starring the the the
+      r02       | The 1998 British comedy " " the of starring starring the the t
+      r03       | The 1998 British comedy starring " the of the starring the the
+      r04       | The 1998 British comedy starring " the of starring starring th
+      r05       | The 1998 British comedy starring " the of the starring the the
+      r06       | The 1998 British comedy " " the of starring starring the the t
+      r07       | The 1998 British comedy film the the of the the the the the th
+      r08       | The 1998 British comedy " the the of the the the the the the t
+      r09       | The 1998 British comedy "The the" starring starring starring t
+      r10-r11   | The 1998 British comedy "The Actually" starring the director o
+      r12       | The 1998 British comedy "The Actually" starring Richard C,, wh
+      r13       | The 1998 British comedy "The Actually" starring Richard C,, th
+      r14       | The 1998 British comedy "The Actually" starring Richard C,, wh
+      r15-r18   | The 1998 British comedy "The Actually" starring Richard F,, wh
+      r19       | The 1998 British comedy "The Actually" starring Terry C,, who 
+      r20-r21   | The 1998 British comedy "The Actually" starring Terry Car,, wh
+      r22       | The 1998 British comedy "The Actually" starring David Tald, wh
+      r23       | The 1998 British comedy "The Actually" starring Terry Carigan,
+      r24       | The 998 British comedy "The Actually" starring Terry Carford, 
+      r25-r26   | The 1998 British comedy "The Actually" starring Terry Carford,
+      r27       | The 1998 British comedy "The Office" starring Terry Carford, w
+      r28-r29   | The 998 British comedy "The Office" starring Terry Gilliam, wh
+      r30-r31   | The 1998 British comedy "The Mask" starring Terry Gilliam, who
+      r32-r41   | The 998 British comedy "The Mask" starring Terry Gilliam, who 
+      r42       | The 998 British comedy "The Mask starring Terry Gilliam, who a
+      r43-r46   | The 998 British comedy "The Mask" starring Terry Gilliam, who 
+      r47       | The 998 British comedy "The Mask starring Terry Gilliam, who a
+      r48-r61   | The 998 British comedy "The Mask" starring Terry Gilliam, who 
+      r62-r63   | The 1998 British comedy "The Mask" starring Terry Gilliam, who
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 43 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : The 22nd AVN Awards took place in what Nevada county?
+  MODEL   : 'The 22nd AVN Awards took place in Las Vegas, Nevada.'
+  GOLD    : Clark County
+
+  stable_all 0.82   stable_top3 0.57   cands_top3 2.0   ans_len 17
+
+  shadow prediction, change-points only:
+      r00-r02   | The 22nd AVN Awards took place in Las Vegas County Nevada Neva
+      r03       | The 22nd AVN Awards took place in Las Vegas County Nevada.
+      r04-r05   | The 22nd AVN Awards took place in Las Vegas County Nevada Neva
+      r06-r07   | The 22nd AVN Awards took place in Las Vegas Vegas Nevada Nevad
+      r08       | The 22nd AVN Awards took place in Las Vegas County Nevada Neva
+      r09       | The 22nd AVN Awards took place in Las Vegas, Nevada.
+      r10-r16   | The 22nd AVN Awards took place in Las Vegas County Nevada.
+      r17       | The22nd AVN Awards took place in Las Vegas, Nevada.
+      r18       | The22nd AVN Awards took place in Las Vegas County Nevada.
+      r19-r23   | The 22nd AVN Awards took place in Las Vegas County Nevada.
+      r24       | The 22nd AVN Awards took place in Las County, Nevada.
+      r25       | The 22nd AVN Awards took place in Las Vegas, Nevada.
+      r26       | The 22nd AVN Awards took place in Clark County, Nevada.   <-- GOLD
+      r27       | The 22nd AVN Awards took place in Clark Vegas, Nevada.
+      r28       | The 22nd AVN Awards took place in Las Vegas, Nevada
+      r29       | The 22nd AVN Awards took place in Clark Vegas, Nevada
+      r30       | The 22nd AVN Awards took place in Las Vegas, Nevada
+      r31-r33   | The 22nd AVN Awards took place in Las Vegas, Nevada.
+      r34       | The22nd AVN Awards took place in Las Vegas, Nevada.
+      r35       | The 22nd AVN Awards took place in Las Vegas, Nevada.
+      r36       | The 22nd AVN Awards took place in Las Vegas, Nevada
+      r37-r63   | The 22nd AVN Awards took place in Las Vegas, Nevada.
+
+  YOUR LABEL  [I]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 44 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : The man, who the award in which "Summer of the Monkeys" won, was a spo
+  MODEL   : 'The man who won the award for "Summer of the Monkeys" and was a spokes'
+  GOLD    : middle America
+
+  stable_all 0.57   stable_top3 0.20   cands_top3 5.3   ans_len 30
+
+  shadow prediction, change-points only:
+      r00       | The man who won the
+      r01       | The man who won the Summer of the Summer Summer the the thekey
+      r02       | The man who won the award in which " of of the Monkeys" won wa
+      r03       | The man who won the award for which " of of the Monkeys" won a
+      r04       | The man who won the award for which "Summer of the Monkeys" wo
+      r05       | The man who won the award for which " of of the Mon"" won was 
+      r06       | The man who won the award for "Summer of the Monkeys" and and 
+      r07-r10   | The man who won the award for "Summer of the Monkeys" and was 
+      r11       | The man who won the award for "Summer of thekeys" and was a fo
+      r12-r13   | The man who won the award for "Summer of the.keys" and was a f
+      r14       | The man who won the award for "Summer of the.keys" and was a s
+      r15       | The man who won an award for "Summer of the.keys" and was a a 
+      r16       | The man who won an award for "Summer of the.keys Academy and w
+      r17       | The man who won award for "Summer of the.keys for and was a sp
+      r18-r19   | The man who won award for "Summer of the.keys Academy and was 
+      r20       | The man who won award for "Summer of the.keys" and was a spoke
+      r21-r22   | The man who won award for "Summer of the keys the and was a sp
+      r23       | The man who won the award for "Summer of the keys the and was 
+      r24       | The man who won. award for "Summer of the keys the and was spo
+      r25       | The man who won award for "Summer of the keys" and was spokesm
+      r26       | The man who won award for "Summer of the keys and was spokesma
+      r27-r30   | The man who won award for "Summer of the keys" and was spokesm
+      r31       | The man who won award for "Summer of thekeys" and was the spok
+      r32-r35   | The man who won award for "Summer of thekeys" and was spokesma
+      r36-r37   | The man who won award for "Summer of thekeys" and was a spokes
+      r38       | The man who won the award for "Summer of thekeys" and was a sp
+      r39-r46   | The man who won the award for "Summer of the Monkeys" and was 
+      r47-r53   | The man who won the award for "Summer of thekeys" and was a sp
+      r54       | The man who won the award for "Summer of the Monkeys" and was 
+      r55-r56   | The man who won the award for "Summer of thekeys" and was a sp
+      r57       | The man who won the award for "Summer of the Monkeys" and was 
+      r58       | The man who won the award for "Summer of thekeys" and was a sp
+      r59-r63   | The man who won the award for "Summer of the Monkeys" and was 
+
+  YOUR LABEL  [X]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 45 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : Profile Lake is located at the foot of a mountain that is how many fee
+  MODEL   : 'Profile Lake is located at the foot of a mountain that is approximatel'
+  GOLD    : 4080
+
+  stable_all 0.75   stable_top3 0.72   cands_top3 1.7   ans_len 23
+
+  shadow prediction, change-points only:
+      r00       | Profile Lake is located at the foot of a mountain,, which ,,00
+      r01       | Profile Lake is located at the foot of a mountain that is ,,00
+      r02       | Profile Lake is located at the foot of a mountain that which w
+      r03       | Profile Lake is located at the foot of a mountain Peak which w
+      r04       | Profile Lake is located at the foot of a mountain that is 1,,0
+      r05       | Profile Lake is located at foot of a mountain that is ,,00 fee
+      r06       | Profile Lake is located at the foot of a mountain that is 1,,0
+      r07       | Profile Lake is located at foot of a mountain that is 1,,00 fe
+      r08       | Profile Lake is located at foot of Mount mountain that is ,,00
+      r09       | Profile Lake is located at foot of a mountain that is approxim
+      r10       | Profile Lake is located at foot of a mountain that is 1,000 fe
+      r11-r14   | Profile Lake is located at foot of mountain that is approximat
+      r15       | Profile Lake is located at Peak foot of mountain that is appro
+      r16-r17   | Profile Lake is located at foot of a mountain that is approxim
+      r18-r52   | Profile Lake is located at foot of mountain that is approximat
+      r53       | Profile Lake is located at foot of a mountain that is approxim
+      r54       | Profile Lake is located at foot of mountain that is approximat
+      r55       | Profile Lake is located at the foot of mountain that is approx
+      r56       | Profile Lake is located at foot of a mountain that is approxim
+      r57-r63   | Profile Lake is located at the foot of a mountain that is appr
+
+  YOUR LABEL  [X]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 46 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : What musical action does Ndebele music and Musical bow have in common?
+  MODEL   : 'Ndebele music and the musical bow both involve the action of producing'
+  GOLD    : played
+
+  stable_all 0.50   stable_top3 0.17   cands_top3 5.0   ans_len 17
+
+  shadow prediction, change-points only:
+      r00       | Ndebele music and Musical bow bow in the action action action 
+      r01-r04   | Ndebele music and Musical bow bow the the action action action
+      r05       | Ndebele music and Musical bow bow both the action action actio
+      r06       | Ndebele music and a musical bow both the the action action act
+      r07-r08   | Ndebele music and the musical bow both the the action action o
+      r09       | Ndebele music and the musical bow both the the action of using
+      r10       | Ndebele music and the musical bow share the the action of crea
+      r11       | Ndebele music and the musical bow both share the action of cre
+      r12-r30   | Ndebele music and the musical bow both involve the action of c
+      r31-r63   | Ndebele music and the musical bow both involve the action of p
+
+  YOUR LABEL  [L]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 47 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : What was Warren Beatty's first movie?
+  MODEL   : 'Warren Beatty\'s first movie was "The Big Country" (1968).'
+  GOLD    : Splendor in the Grass | splendor in grass
+
+  stable_all 0.61   stable_top3 0.48   cands_top3 2.0   ans_len 19
+
+  shadow prediction, change-points only:
+      r00       | Warren Beatty's first movie was "The9"" (19999
+      r01       | Warren Beatty's first movie was "The9" ( (199999
+      r02-r06   | Warren Beatty's first movie was "The Big"" (199999
+      r07       | Warren Beatty's first movie was "The9" ("999999
+      r08       | Warren Beatty's first movie was "The9" ("9999
+      r09-r10   | Warren Beatty's first movie was "The9" ( (9999
+      r11       | Warren Beatty's first movie was "The9" ("9999
+      r12       | Warren Beatty's first movie was "The9" ( (9999
+      r13       | Warren Beatty's first movie was "The9"" (9999
+      r14-r15   | Warren Beatty's first movie was "The9"""9999
+      r16-r17   | Warren Beatty's first movie was "The9"""1999
+      r18       | Warren Beatty's first movie was "The Big"""1999
+      r19       | Warren Beatty's first movie was "The Big"" (999
+      r20       | Warren Beatty's first movie was "The Big" ( (19
+      r21       | Warren Beatty's first movie was "The Big"" (196).).
+      r22-r24   | Warren Beatty's first movie was "The Big"" (1964).
+      r25-r28   | Warren Beatty's first movie was "The Big Man" (1964).
+      r29       | Warren Beatty's first movie was "The Big Country" (1960).
+      r30       | Warren Beatty's first movie was "The Big Country" (1966).
+      r31       | Warren Beatty's first movie was "The Big Country" (968).
+      r32-r63   | Warren Beatty's first movie was "The Big Country" (1968).
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 48 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : Who was the only female candidate in the 2010 Labour leadership contes
+  MODEL   : 'Jeremy Hunt.'
+  GOLD    : DIANE ABBOTT | Diane Julie Abbott | Abbott, Diane
+
+  stable_all 0.20   stable_top3 0.25   cands_top3 3.3   ans_len 4
+
+  shadow prediction, change-points only:
+      r00       | The only female candidate in the 2010 Labour contest was
+      r01-r05   | The only female candidate in the Labour
+      r06       | The only female candidate in Labour
+      r07-r08   | The only female in Labour
+      r09       | The only female
+      r10       | The only female in
+      r11       | The only female
+      r12-r13   | The only.
+      r14       | The Mil.
+      r15       | Jeremy Mil.
+      r16-r20   | Angela Mil.
+      r21       | Angela Mil.and
+      r22-r24   | Jeremy Mil.and
+      r25-r26   | Angela Mil.
+      r27-r28   | Jeremy Mil.
+      r29       | Jeremyvette.
+      r30       | Jeremy Abbott.
+      r31-r63   | Jeremy Hunt.
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 49 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : To whom was the actress Carole Lombard married at the time of her deat
+  MODEL   : 'Carole Lombard was married to actor Peter Strauss.'
+  GOLD    : Clark Gable | ClarkGable | Clarke Gabel
+
+  stable_all 0.71   stable_top3 0.40   cands_top3 3.0   ans_len 12
+
+  shadow prediction, change-points only:
+      r00       | Carole Lombard was married to actor actor at at at time of dea
+      r01-r02   | Carole Lombard was married to actor actor at at at time her de
+      r03       | Carole Lombard was married to actor actor at at the time of he
+      r04       | Carole Lombard was married to actor actor at at at time of her
+      r05-r06   | Carole Lombard was married to actor actor at at at time of dea
+      r07       | Carole Lombard was married to actor actor at at the time of de
+      r08-r14   | Carole Lombard was married to actor actor at at the time of he
+      r15       | Carole Lombard was married to actor actor at at the time of de
+      r16-r19   | Carole Lombard was married to actor actor at at the time of he
+      r20       | Carole Lombard was married to actor L at at the time of her de
+      r21       | Carole Lombard was married to actor Peter at at the time of he
+      r22       | Carole Lombard was married to actor actor at the time of her
+      r23-r25   | Carole Lombard was married to actor actor..
+      r26-r27   | Carole Lombard was married to actor Peter..
+      r28-r29   | Carole Lombard was married to actor Peteratra.
+      r30       | Carole Lombard was married to actor Peter Holden.
+      r31-r63   | Carole Lombard was married to actor Peter Strauss.
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 50 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : Which Walt Disney film was released earlier, The Rescuers or The Muppe
+  MODEL   : 'The Rescuers was released earlier.'
+  GOLD    : The Muppets
+
+  stable_all 0.86   stable_top3 0.65   cands_top3 2.3   ans_len 9
+
+  shadow prediction, change-points only:
+      r00       | The Rescuers was released in 1977, released
+      r01       | The Rescuers was released in 197
+      r02       | The Rescuers was released in 1
+      r03       | The Rescuers was released in 1977
+      r04       | The Rescuers was released in 1977,
+      r05-r06   | The Rescuers was released earlier 1977, while The released
+      r07       | The Rescuers was released earlier in1977, while The
+      r08-r10   | The Rescuers was released earlier 1977,
+      r11       | The Rescuers was released earlier 1977.
+      r12       | The Rescuers was released earlier.197.
+      r13       | The Rescuers was released earlier.19.
+      r14-r16   | The Rescuers was released earlier. The.
+      r17       | The Rescuers was released earlier. The
+      r18-r63   | The Rescuers was released earlier.
+
+  YOUR LABEL  [L]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 51 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : From what island has Chryseobacterium frigidum isolated?
+  MODEL   : 'Chryseobacterium frigidum was isolated from Ross Island, Antarctica.'
+  GOLD    : island of Spitsbergen
+
+  stable_all 0.72   stable_top3 0.45   cands_top3 3.3   ans_len 16
+
+  shadow prediction, change-points only:
+      r00       | Chryseobacterium frigidum was isolated from the Antarctic Isla
+      r01       | Chryseobacterium frigidum was isolated isolated from the Islan
+      r02       | Chryseobacterium frigidum was isolated from the the Island Isl
+      r03-r04   | Chry bacteriumobacterium frigidum was isolated from the the Is
+      r05-r15   | Chryobacterium frigidum was isolated from the Island Island Is
+      r16       | Chryobacterium frigid was isolated from the Island Island Isla
+      r17-r24   | Chryobacterium frigidum was isolated from the Island Island Is
+      r25       | Chryobacterium frigidum was isolated from the Island Island,..
+      r26       | Chryobacterium frigidum was isolated from the Island Island..
+      r27-r63   | Chryobacterium frigidum was isolated from Ross Island, Antarct
+
+  YOUR LABEL  [L]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 52 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : In which year did it become compulsory to wear seat belts in front sea
+  MODEL   : '1984'
+  GOLD    : 1983 | one thousand, nine hundred and eighty-three | one tho
+
+  stable_all 0.61   stable_top3 0.50   cands_top3 2.3   ans_len 5
+
+  shadow prediction, change-points only:
+      r00       | Seat belts became compulsory to wear belts in UK
+      r01-r02   | Seat belts became compulsory to wear
+      r03       | 1 belts became compulsory to wear
+      r04-r05   | Seat belts became compulsory to wear
+      r06       | 19 became compulsory. wear
+      r07-r08   | 19 became compulsory.
+      r09-r11   | 198 compulsory.
+      r12-r20   | 1984.
+      r21-r22   | 1984
+      r23       | 1984.
+      r24-r63   | 1984
+
+  YOUR LABEL  [L]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 53 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : The Swiss immigration referendum, February 2014 is an example of what,
+  MODEL   : 'The Swiss immigration referendum in February 2014 is an example of a n'
+  GOLD    : relations between Switzerland and the European Union
+
+  stable_all 0.65   stable_top3 0.41   cands_top3 2.7   ans_len 33
+
+  shadow prediction, change-points only:
+      r00       | The Swiss immigration referendum, February 2014 was an example
+      r01-r02   | The Swiss immigration referendum, February 2014 is an example 
+      r03-r04   | The Swiss immigration referendum of February 2014 is an exampl
+      r05-r07   | The Swiss immigration referendum, February 2014 is an example 
+      r08       | The Swiss immigration referendum, February 014 is an example o
+      r09       | The Swiss immigration referendum, February 0 4 is an example o
+      r10       | The Swiss immigration referendum, February 20 4 is an example 
+      r11       | The Swiss immigration referendum in February 20 is an example 
+      r12       | The Swiss immigration referendum in February 20 is example of 
+      r13-r17   | The Swiss immigration referendum in February 20 is an example 
+      r18       | The Swiss immigration referendum in February 20 4 is example o
+      r19-r21   | The Swiss immigration referendum in February 204 is example of
+      r22       | The Swiss immigration referendum in February 024 is a example 
+      r23       | The Swiss immigration referendum in February 204 is a example 
+      r24       | The Swiss immigration referendum in February 2014 is an exampl
+      r25       | The Swiss immigration referendum in February 014 is an example
+      r26       | The Swiss immigration referendum in February 04 is an example 
+      r27       | The Swiss immigration referendum in February 014 is an example
+      r28-r29   | The Swiss immigration referendum in February 04 is an example 
+      r30       | The Swiss immigration referendum in February 2014 is an exampl
+      r31       | The Swiss immigration referendum in February 204 is example of
+      r32-r33   | The Swiss immigration referendum in February 204 is an example
+      r34       | The Swiss immigration referendum in February 2014 is an exampl
+      r35       | The Swiss immigration referendum in February 014 is an example
+      r36-r37   | The Swiss immigration referendum in February 2014 is an exampl
+      r38       | The Swiss immigration referendum in February 014 is an example
+      r39-r40   | The Swiss immigration referendum in February 2014 is an exampl
+      r41       | The Swiss immigration referendum in February 014 is an example
+      r42       | The Swiss immigration referendum in February 2014 is an exampl
+      r43       | The Swiss immigration referendum in February 014 is an example
+      r44-r52   | The Swiss immigration referendum in February 2014 is an exampl
+      r53       | The Swiss immigration referendum in February 201 is an example
+      r54       | The Swiss immigration referendum in February 2014 is an exampl
+      r55       | The Swiss immigration referendum in February2014 is an example
+      r56-r63   | The Swiss immigration referendum in February 2014 is an exampl
+
+  YOUR LABEL  [X]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 54 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : According to 2015 survey what fruit was most popular among USA childre
+  MODEL   : 'Bananas'
+  GOLD    : Apples | Apple Blossom | Appleblossom
+
+  stable_all 0.10   stable_top3 0.10   cands_top3 4.7   ans_len 3
+
+  shadow prediction, change-points only:
+      r00       | According to the 2015 survey, the, the the fruit fruit among t
+      r01-r02   | Ban to the 2015 survey, the
+      r03       | Ban to the 2015 survey,
+      r04-r05   | Ban to the 2015 survey, the
+      r06-r07   | Ban to the 2015 survey,
+      r08       | Ban to the 2015 survey
+      r09       | Bananas the 2
+      r10       | Bananas were the
+      r11       | Bananas were
+      r12-r16   | Bananas.
+      r17       | Banraw.
+      r18       | Bananges.
+      r19       | Banraw.
+      r20-r21   | Banraw
+      r22       | Banraw.
+      r23-r27   | Banraw
+      r28       | Banles
+      r29       | Apple   <-- GOLD
+      r30       | Ban.
+      r31-r63   | Bananas
+
+  YOUR LABEL  [I]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 55 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : Christopher Oscar Pena was recognized by an entertainment-industry bra
+  MODEL   : 'Christopher Oscar Pena was recognized by an entertainment-industry bra'
+  GOLD    : people working in film and the performing arts
+
+  stable_all 0.74   stable_top3 0.11   cands_top3 4.0   ans_len 18
+
+  shadow prediction, change-points only:
+      r00       | Christopher Oscar Pena was recognized by an entertainment-indu
+      r01       | Christopher Oscar Pena was recognized by the entertainment-ind
+      r02       | Christopher Oscar Pena was recognized by an entertainment-indu
+      r03       | Christopher Oscar Pena was recognized by the entertainment-ind
+      r04       | Christopher Oscar Pena was recognized by an entertainment-indu
+      r05-r08   | Christopher Oscar Pena was recognized by the entertainment-ind
+      r09       | Christopher Oscarena was recognized by an entertainment-indust
+      r10-r11   | Christopher Oscar Pena was recognized by the entertainment-ind
+      r12-r14   | Christopher Oscar Pena was recognized by an entertainment-indu
+      r15       | Christopher Oscar Pena was recognized by the entertainment-ind
+      r16-r21   | Christopher Oscar Pena was recognized by an entertainment-indu
+      r22       | Christopher Oscarena was recognized by an entertainment-indust
+      r23       | Christopher Oscar Pena was recognized by an entertainment-indu
+      r24-r30   | Christopher Oscarena was recognized by an entertainment-indust
+      r31-r36   | Christopher Oscar Pena was recognized by an entertainment-indu
+      r37       | Christopher Oscarena was recognized by an entertainment-indust
+      r38-r49   | Christopher Oscar Pena was recognized by an entertainment-indu
+      r50       | Christopher Oscarena was recognized by an entertainment-indust
+      r51-r63   | Christopher Oscar Pena was recognized by an entertainment-indu
+
+  YOUR LABEL  [X]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 56 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : What year did the biographical-comedy-crime film directed by Steven So
+  MODEL   : 'The biographical-comedy-crime film directed by Steven Soderbergh about'
+  GOLD    : 2009
+
+  stable_all 0.74   stable_top3 0.08   cands_top3 6.7   ans_len 40
+
+  shadow prediction, change-points only:
+      r00       | The biographical-comedy-crime film directed by Steven Soderghg
+      r01-r11   | The biographical-comedy-crime film directed by Steven Soderber
+      r12-r14   | The biographical-comedy-crime film directed by Steven oderberg
+      r15       | The biographical-comedy-crime film directed by Steven oderoder
+      r16       | The filmographical "edy-crime film directed by Steven odergh a
+      r17       | The ographical "edy-crime film directed by Steven odergh about
+      r18       | The filmographicalTheedy-crime film directed by Steven odergh 
+      r19       | The biographical "edy-crime film directed by Steven odergh abo
+      r20       | The biographical.edy-crime film directed by Steven odergh abou
+      r21       | The biographical theedy-crime film directed by Steven odergh a
+      r22       | The biographicaledy-crime film directed by Steven odergh about
+      r23       | The biographical "edy-crime film directed by Steven Soder Sgh 
+      r24       | The biographical-comedy-crime film directed by Steven Soderber
+      r25-r29   | The trueographicaledy-crime film directed by Steven oderbergh 
+      r30       | The trueographicaledy-crime film directed by Stevenoderbergh a
+      r31       | The trueographicaledy-crime film directed by Stevenoder Sgh ab
+      r32       | The trueographicaledy-crime film directed by Steven Soderbergh
+      r33       | The trueographicaledy-crime film directed by Steven Soder Sgh 
+      r34       | The trueographicaledy-crime film directed by Stevenodergh abou
+      r35       | The trueographicaledy-crime film directed by Steven Soderbergh
+      r36       | The trueographicaledy-crime film directed by Steven Sodergh ab
+      r37       | The trueographicaledy-crime film directed by Stevenodergh abou
+      r38       | The trueographical onedy-crime film directed by Stevenodergh a
+      r39       | The trueographicaledy-crime film directed by Stevenodergh abou
+      r40       | The biographical onedy-crime film directed by Stevenodergh abo
+      r41       | The trueographical onedy-crime film directed by Steven Sodergh
+      r42       | The biographical onedy-crime film directed by Steven Sodergh a
+      r43       | The biographical trueedy-crime film directed by Stevenodergh a
+      r44       | The biographicaledy-crime film directed by Stevenoderbergh abo
+      r45       | The biographical onedy-crime film directed by Steven Soderberg
+      r46       | The biographicaledy-crime film directed by Steven Sodergh abou
+      r47       | The biographicaledy-crime film directed by Steven Soderbergh a
+      r48       | The biographicaledy-crime film directed by Steven Sodergh abou
+      r49       | The biographical filmedy-crime film directed by Steven Soderbe
+      r50       | The biographicaledy-crime film directed by Steven Soderbergh a
+      r51       | The biographicaledy-crime film directed by Stevenodergh about 
+      r52-r55   | The biographicaledy-crime film directed by Steven Soderbergh a
+      r56       | The biographical biedy-crime film directed by Steven Soderberg
+      r57-r63   | The biographical-comedy-crime film directed by Steven Soderber
+
+  YOUR LABEL  [X]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 57 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : What is the first name of Jack Benny Binion's father?
+  MODEL   : 'Jack'
+  GOLD    : Lester
+
+  stable_all 0.78   stable_top3 0.78   cands_top3 1.5   ans_len 2
+
+  shadow prediction, change-points only:
+      r00       | Jack first nameinion Jackinion's father
+      r01-r02   | Jack first Binioninion
+      r03-r05   | Jack firstinion
+      r06-r07   | Jack firstinioninion
+      r08       | Jack first nameinioninion
+      r09       | Jack firstinioninion
+      r10-r12   | Jack firstinion
+      r13-r54   | Jack
+      r55-r56   | 
+      r57-r63   | Jack
+
+  YOUR LABEL  [X]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 58 / 60 --------------------------------------------------------
+  dataset : triviaqa
+  Q       : Which 2010 biographical film, starring Mark Wahlberg and Christian Bal
+  MODEL   : 'The 2010 biographical film starring Mark Wahlberg and Christian Bale, '
+  GOLD    : 'THE FIGHTER' | The Fighter (2010 film) | The fighter
+
+  stable_all 0.61   stable_top3 0.23   cands_top3 3.0   ans_len 51
+
+  shadow prediction, change-points only:
+      r00       | The 2010 biographical film starring Mark Wberg andale
+      r01-r03   | The 2010 biographical film starring Mark Wahlberg and Christia
+      r04-r05   | The M010 biographical film starring Mark Wahlberg and Christia
+      r06-r09   | The .010 biographical film starring Mark Wahlberg and Christia
+      r10       | The .0.0 biographical film starring Mark Wahlberg and Christia
+      r11       | TheM0 D0 biographical film starring Mark Wahlberg and Christia
+      r12       | TheM0 D0 biographical film starring Mark Wberg and Christian B
+      r13       | The 0.0 biographical film starring Mark Wberg and Christian Ba
+      r14       | The .010 biographical film starring Mark Wberg and Christian B
+      r15       | The M010 biographical film starring Mark W Dberg and Christian
+      r16       | The M010 biographical film starring Mark W.berg and Christian 
+      r17       | The 010 biographical film starring Mark W.berg and Christian D
+      r18       | The M010 biographical film starring Mark .berg and Christian M
+      r19       | The 010 biographical film starring Mark W Dberg and Christian 
+      r20       | The010 biographical film starring MarkMberg and Christian Dale
+      r21       | The2010 biographical film starring Mark berg and Christian Dal
+      r22       | The 000 biographical film starring Mark "berg and Christian Da
+      r23       | The 2010 biographical film starring Mark berg and Christian Da
+      r24       | The2010 biographical film starring Mark byberg and Christian D
+      r25       | The 2010 biographical film starring Mark byberg and Christian 
+      r26-r27   | The 2010 biographical film starring Mark Wberg and Christian D
+      r28-r29   | The 2010 biographical film starring Mark byberg and Christian 
+      r30       | The 2010 biographical film starring Mark Wberg and Christian D
+      r31       | The 2010 biographical film starring Mark 1berg and Christian D
+      r32       | The 1010 biographical film starring Mark berg and Christian Da
+      r33-r34   | The 1010 biographical film starring Mark 1berg and Christian D
+      r35       | The 1010 biographical film starring Mark ahlberg and Christian
+      r36       | The 1010 biographical film starring Mark berg and Christian Da
+      r37       | The 1010 biographical film starring Mark W1berg and Christian 
+      r38-r41   | The 1010 biographical film starring Mark W berg and Christian 
+      r42       | The 1010 biographical film starring Mark by berg and Christian
+      r43       | The 010 biographical film starring Mark by berg and Christian 
+      r44       | The 010 biographical film starring Mark W berg and Christian D
+      r45-r46   | The 010 biographical film starring Mark by berg and Christian 
+      r47-r48   | The 010 biographical film starring Mark by berg and Christiana
+      r49       | The 010 biographical film starring Mark W berg and Christianal
+      r50       | The 010 biographical film starring Mark by berg and Christiana
+      r51       | The 010 biographical film starring Mark W berg and Christianal
+      r52-r55   | The 010 biographical film starring Mark Wahlberg and Christian
+      r56-r58   | The 010 biographical film starring Markahlberg and Christianal
+      r59       | The 010 biographical film starring Markahlberg and ChristianMa   <-- GOLD
+      r60       | The 010 biographical film starring Markahlberg and ChristianDa
+      r61       | The 010 biographical film starring Mark Wberg and Christian al
+      r62       | The 010 biographical film starring Mark Wahlberg and Christian
+      r63       | The2010 biographical film starring Mark Wahlberg and Christian
+
+  YOUR LABEL  [X]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 59 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : Which opera has more acts, Louise or Le roi malgré lui?
+  MODEL   : 'Le roi malgré lui'
+  GOLD    : Louise
+
+  stable_all 0.81   stable_top3 0.61   cands_top3 2.0   ans_len 7
+
+  shadow prediction, change-points only:
+      r00       | Le roiisegréé lui has has acts acts acts acts acts acts acts a
+      r01       | Le roi malgré lui has more acts acts
+      r02       | Le roi malgré lui has acts acts acts
+      r03-r05   | Le roi malgré lui has acts acts
+      r06       | Le roi malé lui has acts acts
+      r07       | Le roi malgré lui has acts acts
+      r08       | Le roi malé lui has acts acts
+      r09       | Le roi malgré lui has acts
+      r10-r13   | Le roi malgré lui has acts acts
+      r14-r16   | Le roi malgré lui has acts
+      r17       | Le roi malgré lui has
+      r18       | Le roi malgré lui has acts acts
+      r19-r20   | Le roi malgré lui has
+      r21-r31   | Le roi malgré lui
+      r32       | Le roi malé lui
+      r33-r63   | Le roi malgré lui
+
+  YOUR LABEL  [L]      (L / I / C / X)
+  note: ______________________________________________
+
+--- 60 / 60 --------------------------------------------------------
+  dataset : hotpotqa
+  Q       : Otterington railway station was on a 393 mi major railway that linked 
+  MODEL   : 'Otterington railway station was on the Scottish Railway, which linked '
+  GOLD    : London
+
+  stable_all 0.55   stable_top3 0.20   cands_top3 5.7   ans_len 18
+
+  shadow prediction, change-points only:
+      r00       | Otterington railway station was on the9
+      r01       | Otterington railway station was on the 3933 railway
+      r02       | Otterington railway station was on the 3933 Edinburgh railway
+      r03       | Otterington railway station was on the 3933 railway
+      r04       | Otterington railway station was on the the3933, railway,,, to
+      r05       | Otterington railway station was on the the3933, railway, Edinb
+      r06       | Otterington railway station was on the 393, which railway rail
+      r07       | Otterington railway station was on the 393 mi major railway th
+      r08       | Otterington railway station was on the 393 which which railway
+      r09-r10   | Otterington railway station was on the 393 mi major railway th
+      r11       | Otterington railway station was on the 393 mi major railway to
+      r12       | Otterington railway station was on the 393 mi major railway, t
+      r13       | Otterington railway station was on the 393 which major railway
+      r14       | Otterington railway station was on the Edinburgh393 mi which r
+      r15-r16   | Otterington railway station was on the 393 which major railway
+      r17       | Otterington railway station was on the Edinburgh39, mi which E
+      r18       | Otterington railway station was on the Edinburgh39, which whic
+      r19       | Otterington railway station was on the Edinburgh and,, which E
+      r20       | Otterington railway station was on the Edinburgh Coast,, which
+      r21-r22   | Otterington railway station was on the Edinburgh Railway, whic
+      r23-r24   | Otterington railway station was on the Edinburgh Railway Railw
+      r25-r27   | Otterington railway station was on the East Railway, which lin
+      r28       | Otterington railway station was on the main Railway, which lin
+      r29-r30   | Otterington railway station was on the Main Railway, which lin
+      r31-r63   | Otterington railway station was on the Scottish Railway, which
+
+  YOUR LABEL  [C]      (L / I / C / X)
+  note: ______________________________________________
+
+==============================================================================
+WHEN YOU ARE DONE
+-----------------
+Send back just the letters, in order, e.g.:
+
+   1 L   2 C   3 X   4 I   5 L   ...
+
+I will fit the thresholds to them, report agreement with the code's own
+labels, and recompute the Phase C sample size from a calibrated split
+rather than an assumed one.
+==============================================================================
