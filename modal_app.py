@@ -6,9 +6,30 @@ Runs the project's scripts on rented GPUs instead of the laptop. Everything in
 `src/` and `scripts/` is used unchanged - this file only supplies a machine,
 a filesystem, and the plumbing between them.
 
-    modal run modal_app.py::benchmark                 # Step 8, A100 40GB
-    modal run modal_app.py::benchmark --gpu L4        # cheaper, still bf16
-    modal run modal_app.py::shell                     # interactive poke-around
+    modal run --detach modal_app.py::run --script step11_phasec_generate.py
+    modal run modal_app.py::run_cpu --script step10d_fit_and_apply.py
+    modal run modal_app.py::inspect
+
+USE --detach FOR ANYTHING LONGER THAN A FEW MINUTES
+---------------------------------------------------
+`modal run` without it creates an EPHEMERAL app, which Modal stops the moment
+the client disconnects. The client is the process on your laptop. So a closed
+lid, a sleeping machine, a dropped wifi connection or a closed terminal all
+kill the GPU job - and because the Volume is committed only when the job
+finishes, everything it had generated is lost with it.
+
+This is not hypothetical: a Phase C run died this way, with
+
+    socket.gaierror: [Errno 11001] getaddrinfo failed
+
+which is the laptop's DNS failing after it went to sleep, not a problem in the
+container. From Modal's docs: "Ephemeral Apps are stopped automatically when
+the calling program exits, or when the server detects that the client is no
+longer connected", and "The --detach flag ensures training will continue even
+if you close your terminal or turn off your computer."
+
+**Rule for this project: any GPU run goes through `modal run --detach`.**
+Watch it at modal.com/apps, or with `modal app logs <app-id>`.
 
 Why Modal rather than Kaggle
 ----------------------------
@@ -31,9 +52,8 @@ Modal bills per second. At the time of writing:
     A100 40GB   $2.10/hr    40 GB   bf16, batch 16+
     H100        $3.95/hr    80 GB   unnecessary here
 
-Phase C is ~9,000 generations. On an A100 at batch 16 that is roughly 5
-GPU-hours, about $11. The Starter plan includes $30/month of free compute, so
-Phase C and an ablation both fit inside one month's allowance.
+Phase C is 11,250 generations at a measured 2.01 s/question: about 6.3
+GPU-hours, roughly $13. The Starter plan includes $30/month of free compute.
 
 Persistence
 -----------
@@ -56,6 +76,20 @@ import modal
 
 APP_NAME = "triage-cradle"
 REMOTE_ROOT = "/root/triage"
+
+# Modal's hard ceiling on a single Function call is 24 hours. The previous
+# value here was 4, which was a guess, and it shaped a whole generation script
+# around splitting work that did not need splitting. Phase C fits comfortably.
+MAX_TIMEOUT = 24 * 60 * 60
+
+# How often the Volumes are committed WHILE a script is still running.
+#
+# A Volume's contents are persisted on commit. `_run_script` used to commit
+# only after the subprocess returned, so a crash, a timeout or a client
+# disconnect discarded every file written during the run. For a six-hour
+# generation job that is hours of GPU time thrown away. Committing every few
+# minutes bounds the loss to the last interval.
+COMMIT_EVERY_S = 5 * 60
 
 # Per-second prices, converted to $/hour, used only to print a cost estimate.
 # Update if Modal's pricing changes; nothing functional depends on them.
@@ -103,6 +137,9 @@ image = (
         "HF_HUB_DISABLE_SYMLINKS_WARNING": "1",
         # Kaggle/Colab-style progress bars are noise in Modal's log stream.
         "HF_HUB_DISABLE_PROGRESS_BARS": "0",
+        # Unbuffered, so a long run's progress lines appear as they happen
+        # rather than all at once when the subprocess finally exits.
+        "PYTHONUNBUFFERED": "1",
     })
     .add_local_dir("src", f"{REMOTE_ROOT}/src")
     .add_local_dir("scripts", f"{REMOTE_ROOT}/scripts")
@@ -119,12 +156,33 @@ VOLUMES = {
 }
 
 
-def _run_script(script: str, gpu: str) -> str:
-    """Execute one of the project's scripts and stream its output.
+def _commit_all() -> None:
+    """Persist all three Volumes. Safe to call repeatedly."""
+    for vol in (data_vol, out_vol, cache_vol):
+        try:
+            vol.commit()
+        except Exception as exc:          # a failed commit must not kill the run
+            print(f"  [volume commit warning] {exc}", flush=True)
+
+
+def _run_script(script: str, gpu: str) -> int:
+    """Execute one of the project's scripts, streaming output and committing.
 
     Runs it as a subprocess rather than importing it, so the scripts stay
     exactly as they are on the laptop - no Modal-specific branching inside the
     research code.
+
+    Two properties this needs that the obvious `subprocess.run(...,
+    capture_output=True)` does not have:
+
+    **Output appears as it happens.** `capture_output` buffers everything until
+    the process exits, so a six-hour job shows nothing for six hours and then
+    prints a wall of text. Progress lines are the only way to tell a slow run
+    from a hung one.
+
+    **The Volume is committed periodically.** Committing only at the end means a
+    crash, a timeout, or a client disconnect discards every file the run
+    produced. Committing every few minutes bounds that loss to one interval.
     """
     import subprocess
     import sys
@@ -132,37 +190,48 @@ def _run_script(script: str, gpu: str) -> str:
 
     print("=" * 78)
     print(f"  Modal: {script} on {gpu}")
+    print(f"  committing volumes every {COMMIT_EVERY_S // 60} min")
     print("=" * 78, flush=True)
 
     t0 = time.time()
-    proc = subprocess.run(
-        [sys.executable, f"scripts/{script}"],
+    last_commit = t0
+
+    proc = subprocess.Popen(
+        [sys.executable, "-u", f"scripts/{script}"],
         cwd=REMOTE_ROOT,
-        capture_output=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
         text=True,
+        bufsize=1,
     )
+
+    # Stream, committing between lines. Reading line by line keeps memory flat
+    # no matter how chatty the script is.
+    for line in proc.stdout:
+        print(line.rstrip(), flush=True)
+        now = time.time()
+        if now - last_commit >= COMMIT_EVERY_S:
+            _commit_all()
+            print(f"  [volumes committed at {(now - t0) / 60:.0f} min]", flush=True)
+            last_commit = now
+
+    proc.wait()
     elapsed = time.time() - t0
 
-    print(proc.stdout)
-    if proc.stderr.strip():
-        print("--- stderr ---")
-        print(proc.stderr)
+    # Final commit, always - including after a non-zero exit, because a script
+    # that failed halfway still generated real work worth keeping.
+    _commit_all()
 
     rate = GPU_HOURLY.get(gpu, 0.0)
     print("=" * 78)
-    print(f"  wall clock  : {elapsed/60:.1f} min")
+    print(f"  wall clock  : {elapsed / 60:.1f} min ({elapsed / 3600:.2f} h)")
     if rate:
         print(f"  GPU         : {gpu} at ${rate:.2f}/hr")
-        print(f"  this run    : ${elapsed/3600*rate:.2f}")
-        print(f"  exit code   : {proc.returncode}")
+        print(f"  this run    : ${elapsed / 3600 * rate:.2f}")
+    print(f"  exit code   : {proc.returncode}")
     print("=" * 78, flush=True)
 
-    # Persist whatever the script wrote before the container disappears.
-    data_vol.commit()
-    out_vol.commit()
-    cache_vol.commit()
-
-    return proc.stdout
+    return proc.returncode
 
 
 # ---------------------------------------------------------------------------
@@ -170,19 +239,16 @@ def _run_script(script: str, gpu: str) -> str:
 # decoration time - it cannot be chosen at call time. Everything else is
 # parameterised, so future steps need no changes here:
 #
-#     modal run modal_app.py::run --script step9_base_rate.py
-#     modal run modal_app.py::run --script step11_generate.py --gpu L4
-#
-# Timeout is 4 hours. Generation steps are long, and an uncapped run on a
-# metered GPU is the one way this project can quietly cost real money.
+#     modal run --detach modal_app.py::run --script step11_phasec_generate.py
+#     modal run modal_app.py::run --script step9_base_rate.py --gpu L4
 # ---------------------------------------------------------------------------
 
-@app.function(image=image, volumes=VOLUMES, gpu="A100-40GB", timeout=4 * 60 * 60)
+@app.function(image=image, volumes=VOLUMES, gpu="A100-40GB", timeout=MAX_TIMEOUT)
 def _run_a100(script: str):
     return _run_script(script, "A100-40GB")
 
 
-@app.function(image=image, volumes=VOLUMES, gpu="L4", timeout=4 * 60 * 60)
+@app.function(image=image, volumes=VOLUMES, gpu="L4", timeout=MAX_TIMEOUT)
 def _run_l4(script: str):
     return _run_script(script, "L4")
 
@@ -191,7 +257,7 @@ def _run_l4(script: str):
 # and at $0.0000131 per core-second they are effectively free. Never rent an
 # A100 to re-score a CSV.
 @app.function(image=image, volumes=VOLUMES, cpu=2.0, memory=8192,
-              timeout=60 * 60)
+              timeout=MAX_TIMEOUT)
 def _run_cpu(script: str):
     return _run_script(script, "CPU")
 
@@ -200,7 +266,7 @@ def _run_cpu(script: str):
 def run_cpu(script: str):
     """Run an analysis script with no GPU at all.
 
-        modal run modal_app.py::run_cpu --script step9b_rescore.py
+        modal run modal_app.py::run_cpu --script step10d_fit_and_apply.py
 
     For anything that reads trajectories rather than generating them:
     re-scoring, feature screens, evaluation, figures.
@@ -212,8 +278,12 @@ def run_cpu(script: str):
 def run(script: str, gpu: str = "A100-40GB"):
     """Run any script from scripts/ on a rented GPU.
 
-        modal run modal_app.py::run --script step9_base_rate.py
+        modal run --detach modal_app.py::run --script step11_phasec_generate.py
         modal run modal_app.py::run --script step9_base_rate.py --gpu L4
+
+    **Use --detach for anything longer than a few minutes.** Without it the App
+    is ephemeral and dies with the client - a sleeping laptop is enough to kill
+    a six-hour job and lose everything it had generated.
 
     The script name is relative to scripts/. Outputs land on the Volumes and
     survive the container, so fetch them afterwards with:
@@ -235,11 +305,6 @@ def benchmark(gpu: str = "A100-40GB"):
 
     First run downloads ~17 GB into the cache Volume and takes 10-20 minutes.
     Later runs start in about a minute.
-
-    Run it on BOTH once. The A100 is 2.6x the hourly rate of the L4, so it only
-    wins if it is more than 2.6x faster per question - which depends on batching,
-    and batching is not implemented yet. The cheaper card may well be the right
-    production choice, and this is a $2 experiment that settles it.
     """
     if gpu.upper() == "L4":
         _run_l4.remote("step8_kaggle_benchmark.py")
@@ -259,6 +324,11 @@ def _inspect():
     print("\n--- volumes ---")
     for path in ("/cache/hf", f"{REMOTE_ROOT}/data", f"{REMOTE_ROOT}/outputs"):
         subprocess.run(["du", "-sh", path], check=False)
+
+    print("\n--- trajectory counts ---")
+    subprocess.run(["bash", "-c",
+                    f"find {REMOTE_ROOT}/data/trajectories -name '*.npz' | "
+                    f"sed 's|/[^/]*$||' | sort | uniq -c"], check=False)
 
     print("\n--- config as seen here ---")
     subprocess.run([sys.executable, "src/config.py"], cwd=REMOTE_ROOT, check=False)
@@ -281,9 +351,10 @@ def inspect():
         modal run modal_app.py::inspect
 
     Confirms the code uploaded, the Volumes mounted, the cache is where it
-    should be, and - the important one - that `model_utils` offers config 0
-    (full precision, no quantisation) on this card. If config 0 is missing, the
-    GPU is too small and the run would silently fall back to 4-bit, which is the
-    thing this whole move to Modal exists to avoid.
+    should be, how many trajectories exist per directory, and - the important
+    one - that `model_utils` offers config 0 (full precision, no quantisation)
+    on this card. If config 0 is missing, the GPU is too small and the run would
+    silently fall back to 4-bit, which is the thing this whole move to Modal
+    exists to avoid.
     """
     _inspect.remote()

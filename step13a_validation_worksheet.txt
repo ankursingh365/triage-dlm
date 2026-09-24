@@ -1,0 +1,1037 @@
+============================================================================================
+  TRIAGE - Step 13a: correctness validation worksheet
+============================================================================================
+
+  HOW TO LABEL
+
+  For each item, decide ONE thing: does the model answer state
+  the same fact as one of the reference answers?
+
+      y   yes, it is correct
+      n   no, it is wrong
+      ?   the reference answer itself looks broken, or the
+          question cannot be answered as asked
+
+  Ignore wording, word order, extra explanation, capitals and
+  punctuation. An answer that only repeats the question, or
+  never reaches an answer, is n.
+
+  Send back one line of 100 labels, in order, separated by
+  spaces. Example:  y n n y ? n y y n ...
+
+  The judge's verdicts are NOT in this file, deliberately.
+  Do not open step13a_judge_verdicts.csv before labelling -
+  an annotator who has seen the machine's answer is not an
+  independent annotator.
+
+============================================================================================
+  #1    [hotpotqa]
+
+  Q     Elizabeth Wordsworth's father was bishop in what church?
+  GOLD  Anglican Church
+  ANS   Elizabeth Wordsworth's father, William Wordsworth, was a bishop in the Church of
+        England.
+
+  correct?  y
+
+============================================================================================
+  #2    [hotpotqa]
+
+  Q     What city has had an NFL football team with the same name as a Los Angeles NFL
+        team?
+  GOLD  St. Louis
+  ANS   The city that has had an NFL football team with the same name as a Los Angeles NFL
+        team is Oakland, California. The Oakland Raiders played from 1970 to 1995, then
+        moved to Los Angeles in 1996 and are now known as the Los Angeles Raiders.
+
+  correct?  n
+
+============================================================================================
+  #3    [hotpotqa]
+
+  Q     In what mountain range that extends through multiple countries is there a mountain
+        that lies southeast of Jacabamba?
+  GOLD  The Andes
+  ANS   The mountain range that extends through multiple countries and has a mountain
+        lying southeast of Jacabamba is the Andes. The mountain in question is Jacabamba,
+        located in Bolivia.
+
+  correct?  y
+
+============================================================================================
+  #4    [triviaqa]
+
+  Q     ‘The Crafty Cockney’ was the nickname of which British darts player?
+  GOLD  Eric Bristow | Crafty Cockney | The Crafty Cockney
+  ANS   Phil Taylor.
+
+  correct?  n
+
+============================================================================================
+  #5    [hotpotqa]
+
+  Q     Grimsby Minster is located in which English Province?
+  GOLD  Province of Canterbury
+  ANS   Grimsby Minster is located in North Yorkshire, England.
+
+  correct?  n
+
+============================================================================================
+  #6    [hotpotqa]
+
+  Q     Are both Lukas Rossi and Terry Kath American?
+  GOLD  no
+  ANS   Yes.
+
+  correct?  n
+
+============================================================================================
+  #7    [hotpotqa]
+
+  Q     Who was the woman whose execution for treason by German firing squad was the
+        reason for Prussian Generalleutnant (Lieutenant General) Traugott von
+        Sauberzweig's replacement as Military Governor of Brussels in 1915?
+  GOLD  Edith Louisa Cavell
+  ANS   The woman whose execution for treason by German firing squad was the reason for
+        Prussian Generalleutnant (Lieutenant General) Traugott von Sauberzweig's
+        replacement as Military Governor of Brussels in 1915 was Marie Dutroux, a Belgian
+        feminist and anti-war activist.
+
+  correct?  n
+
+============================================================================================
+  #8    [hotpotqa]
+
+  Q     Is the university that owns WCSU-FM historically black or white?
+  GOLD  black
+  ANS   The university that owns WCSU-FM is historically black.
+
+  correct?  y
+
+============================================================================================
+  #9    [triviaqa]
+
+  Q     Which ITV magazine style show ran from 1968 to 1980 and featured presenters
+        including Jenny Hanley, Mick Robertson and Tommy Boyd?
+  GOLD  Magpie | Chatterpie | Magpies
+  ANS   The ITV magazine-style show that ran from 1968 to 1980 and featured presenters
+        including Jenny Hanley, Mick Robertson, and Tommy Boyd is "Panorama."
+
+  correct?  n
+
+============================================================================================
+  #10   [triviaqa]
+
+  Q     What American city has suffered two (separate) outcomes of what are now called
+        'The Move' and 'The Decision' in sports lore?
+  GOLD  Cleveland | The Rock 'n' Roll Capital of the World | Cleveland, Cuyahoga, Ohio |
+        Cleveland, Ohio | Clevelnad
+  ANS   The American city that has suffered two separate outcomes of what are now called
+        'The Move' and 'The Decision' in sports lore is Detroit, Michigan. The two
+        instances are the relocation of the Detroit Tigers in 1967 and the relocation of
+        the Detroit Pistons in 2013.
+
+  correct?  n
+
+============================================================================================
+  #11   [hotpotqa]
+
+  Q     Which division did people from the division Major General Robert Walker Grow
+        commanded originally come from?
+  GOLD  2nd Armored Division
+  ANS   Major General Robert Walker Grow commanded the 80th Army Division. This division
+        was originally formed from the 24th Infantry Division.
+
+  correct?  n
+
+============================================================================================
+  #12   [hotpotqa]
+
+  Q     Which feature does the G-shock watch have that is tested by a leakage test?
+  GOLD  water resistance
+  ANS   The G-Shock watch's water resistance is tested by a leakage test.
+
+  correct?  y
+
+============================================================================================
+  #13   [triviaqa]
+
+  Q     Which stretch of water lies between Iceland and Greenland?
+  GOLD  DENMARK STRAIT | Denmark Straits | Greenland strait | Strait of Denmark
+  ANS   The Denmark Strait.
+
+  correct?  y
+
+============================================================================================
+  #14   [triviaqa]
+
+  Q     What are the grades of proficiency in judo called?
+  GOLD  Dans | Dansereau | Dans. | Pierre Mackay Dansereau | Pierre Dansereau
+  ANS   The grades of proficiency in judo are called ranks.
+
+  correct?  n
+
+============================================================================================
+  #15   [hotpotqa]
+
+  Q     What country is home to both Guadarrama National Park and Doñana National Park?
+  GOLD  Spain
+  ANS   Spain.
+
+  correct?  y
+
+============================================================================================
+  #16   [triviaqa]
+
+  Q     The still-used ancient unit of weight equating roughly to 0.065 gms or 65
+        milligrams is a?
+  GOLD  Grain | Organic grain | Grains (agronomic) | Food grain | Food grains
+  ANS   Grain
+
+  correct?  y
+
+============================================================================================
+  #17   [hotpotqa]
+
+  Q     What was the name of the treaty that made Hungary a landlocked state which
+        contained the Kolozsvar Ghetto?
+  GOLD  Treaty of Trianon
+  ANS   The treaty that made Hungary a landlocked state and contained the Kolozsvar Ghetto
+        is the Treaty of Trianon, signed in 1920. This treaty significantly reduced
+        Hungary's territory and led to the establishment of several ghettos, including the
+        Kolozsvar Ghetto.
+
+  correct?  y
+
+============================================================================================
+  #18   [triviaqa]
+
+  Q     Brown Willy is the highest point in which county?
+  GOLD  Cornwall | Curnow | Corn Wall | Cornwall (County), England | Cernyw
+  ANS   Brown Willy is the highest point in Wayne County, Kentucky.
+
+  correct?  n
+
+============================================================================================
+  #19   [hotpotqa]
+
+  Q     The Battle of Nanchang was fought between the Chinese Nationals and what ground-
+        based armed force of Japan?
+  GOLD  Imperial Japanese Army
+  ANS   The Battle of Nanchang was fought between the Chinese Nationalists and the
+        Imperial Japanese Army.
+
+  correct?  y
+
+============================================================================================
+  #20   [triviaqa]
+
+  Q     What is Marge Simpson's maiden name ?
+  GOLD  BOUVIER | Augustus Jules Bouvier | AUGUSTUS JULES BOUVIER (1837-81) | A. Bouvier |
+        augustus jules bouvier 1837 81
+  ANS   Bouvier.
+
+  correct?  y
+
+============================================================================================
+  #21   [hotpotqa]
+
+  Q     After he was contracted by the team that is headquartered in Affalterbach, Baden-
+        Württemberg, Germany, Dario Franchitti competed in what series?
+  GOLD  DTM
+  ANS   Dario Franchitti competed in the IndyCar Series.
+
+  correct?  n
+
+============================================================================================
+  #22   [triviaqa]
+
+  Q     Argentina invaded UK's Falkland Islands, Israel invaded Southern Lebanon, Canada
+        became officially independent of the UK, Leonid Brezhnev, leader of the USSR,
+        died, all in what year?
+  GOLD  1982 | one thousand, nine hundred and eighty-two | one thousand nine hundred and
+        eighty two
+  ANS   All in 1982.
+
+  correct?  y
+
+============================================================================================
+  #23   [triviaqa]
+
+  Q     Which is the main sport played at the Basin Reserve in Wellington, New Zealand?
+  GOLD  CRICKET | Cricket games | Cricketeer | Wicketkeeping | Sport cricket
+  ANS   The main sport played at the Basin Reserve in Wellington, New Zealand, is cricket.
+
+  correct?  y
+
+============================================================================================
+  #24   [hotpotqa]
+
+  Q     Who had a longer film career, Harry Sweet or John Biddle?
+  GOLD  John Scott Biddle
+  ANS   Harry Sweet had a longer film career.
+
+  correct?  n
+
+============================================================================================
+  #25   [hotpotqa]
+
+  Q     Who had more career changes, Charles A. Agemian or Arshile Gorky?
+  GOLD  Charles A. Agemian
+  ANS   Arshile Gorky had more career changes. He was a Russian artist who moved to the
+        United States in 1925 and later became a sculptor, painter, and photographer.
+        Charles A. Agemian was an American artist, but I couldn't find any information
+        about his career changes.
+
+  correct?  n
+
+============================================================================================
+  #26   [triviaqa]
+
+  Q     The character Sally Bowles appears in which film?
+  GOLD  Cabaret | Caberet | Cabaret artist | Cabaretier | Cabarét
+  ANS   Sally Bowles appears in the film, Psycho.
+
+  correct?  n
+
+============================================================================================
+  #27   [triviaqa]
+
+  Q     What is the international telephone dialling code for Germany?
+  GOLD  49 | forty-nine | forty nine
+  ANS   The international telephone dialling code for Germany is +49.
+
+  correct?  y
+
+============================================================================================
+  #28   [hotpotqa]
+
+  Q     Whiich genus has more species, Dracula or Pistacia?
+  GOLD  Dracula
+  ANS   Pistacia
+
+  correct?  n
+
+============================================================================================
+  #29   [triviaqa]
+
+  Q     Where is the administrative centre of Cumbria?
+  GOLD  CARLISLE | Carlisle (city) | Carlisleshire | carlisle city
+  ANS   The administrative centre of Cumbria is Carlisle.
+
+  correct?  y
+
+============================================================================================
+  #30   [hotpotqa]
+
+  Q     What award was an actor born in 1955 that acted in the movie Ransom nominated for?
+  GOLD  Academy Award
+  ANS   The actor born in 1955 who acted in the movie "Ransom" is Christian Bale. He was
+        nominated for the Academy Award for Best Actor.
+
+  correct?  y
+
+============================================================================================
+  #31   [hotpotqa]
+
+  Q     Are both Snowboard Magazine and The Believer sporting magazines?
+  GOLD  no
+  ANS   Yes, both Snowboard Magazine and The Believer are sporting magazines. Snowboard
+        Magazine focuses on snowboarding, while The Believer covers various sports,
+        including snowboarding.
+
+  correct?  n
+
+============================================================================================
+  #32   [hotpotqa]
+
+  Q     What is the name of the film starring Rose McGowan and features the character Earl
+        McGraw's daughter?
+  GOLD  Planet Terror
+  ANS   The film starring Rose McGowan and featuring the character Earl McGraw's daughter
+        is "The Big Chill."
+
+  correct?  n
+
+============================================================================================
+  #33   [triviaqa]
+
+  Q     Hong Kong is one of two 'special administrative regions' of China; what is the
+        other?
+  GOLD  MACAU | 澳门特区 | Haojing'ao | Au men | RAEM
+  ANS   Macau.
+
+  correct?  y
+
+============================================================================================
+  #34   [triviaqa]
+
+  Q     Which African country is bordered to the east by Chad, to the south by Nigeria and
+        Benin, to west by Mali, and to the north by Algeria and Libya?
+  GOLD  NIGER | Rhopalocystis nigra | A niger | A. Niger | Aspergillopsis nigra
+  ANS   The country is Niger.
+
+  correct?  y
+
+============================================================================================
+  #35   [hotpotqa]
+
+  Q     Ricky Martin's concert tour in 1999 featured an American heavy metal band formed
+        in what year?
+  GOLD  1991
+  ANS   Ricky Martin's concert tour in 1999 featured the American heavy metal band
+        Metallica, formed in 1981.
+
+  correct?  n
+
+============================================================================================
+  #36   [triviaqa]
+
+  Q     According to The Mamas and the Papas, which day cannot be trusted?
+  GOLD  Monday | Lunedi | Mondays | Moon Day | Lundi
+  ANS   Monday.
+
+  correct?  y
+
+============================================================================================
+  #37   [hotpotqa]
+
+  Q     Jessica Jones is a television series created for Netflix, the second in the series
+        of the shows that lead to "The Defenders" miniseries after what show released on
+        Netflix earlier?
+  GOLD  Daredevil
+  ANS   The show released on Netflix earlier is Daredevil.
+
+  correct?  y
+
+============================================================================================
+  #38   [triviaqa]
+
+  Q     The North Sea and the Baltic Sea are linked through which canal?
+  GOLD  KIEL CANAL | Kaiser Wilhelm Canal | Nord-Ostsee-Kanal | The Kiel Canal | nord
+        ostsee kanal
+  ANS   The North Sea and the Baltic Sea are linked through the Kiel Canal.
+
+  correct?  y
+
+============================================================================================
+  #39   [hotpotqa]
+
+  Q     Are both Smoking Bishop and Caipirinha beverages?
+  GOLD  yes
+  ANS   Yes, both Smoking Bishop and Caipirinha are beverages. Smoking Bishop is a type of
+        sparkling wine, while Caipirinha is a cocktail.
+
+  correct?  y
+
+============================================================================================
+  #40   [hotpotqa]
+
+  Q     Who was born first, Karen Joy Fowler or Bruce Chatwin?
+  GOLD  Bruce Chatwin
+  ANS   Karen Joy Fowler was born first.
+
+  correct?  n
+
+============================================================================================
+  #41   [hotpotqa]
+
+  Q     What colloquial umbrella do Rutgers and the many Ivy league schools fall under?
+  GOLD  colonial colleges
+  ANS   Rutgers and the Ivy League schools fall under the umbrella of higher education.
+
+  correct?  n
+
+============================================================================================
+  #42   [hotpotqa]
+
+  Q     Do Singapore Sling and Fish House Punch both contain alcohol?
+  GOLD  yes
+  ANS   Yes, both Singapore Sling and Fish House Punch contain alcohol.
+
+  correct?  y
+
+============================================================================================
+  #43   [triviaqa]
+
+  Q     "In economics, whose law states that, ""Bad Money Drives Out Good""?"
+  GOLD  SIR THOMAS GRESHAM | Thomas Gresham
+  ANS   The law that states "Bad Money Drives Out Good" is known asresham's Law. It
+        suggests that in a market with different types of money, the less valuable or less
+        accepted currency will eventually be driven out of circulation, while the more
+        valuable or more accepted currency will continue to be used an
+
+  correct?  y
+
+============================================================================================
+  #44   [hotpotqa]
+
+  Q     Where is the  highest level of baseball which Koichi Sekikawa is a former
+        outfielder in located
+  GOLD  Japan
+  ANS   The highest level of baseball which Koichi Sekikawa is a former outfielder in is
+        Major League Baseball (MLB), which is located in the United States.
+
+  correct?  n
+
+============================================================================================
+  #45   [hotpotqa]
+
+  Q     Notable works of Bailee Madison includes a 2011 American Romantic comedy film that
+        was directed by Dennis Dugan, and written by Allan Loeb and who?
+  GOLD  Timothy Dowling
+  ANS   Bailee Madison's notable works include the 2011 American romantic comedy film
+        "Crazy Rich Asians," directed by Dennis Dugan and written by Allan Loeb and Bailee
+        Madison.
+
+  correct?  n
+
+============================================================================================
+  #46   [hotpotqa]
+
+  Q     Which film was released first, Those Calloways or The Happiest Millionaire?
+  GOLD  Those Calloways
+  ANS   Those Calloways was released first in 1942.
+
+  correct?  y
+
+============================================================================================
+  #47   [hotpotqa]
+
+  Q     What country of origin does Jerry Barrett and Florence Nightingale have in common?
+  GOLD  English
+  ANS   Jerry Barrett and Florence Nightingale are both British.
+
+  correct?  y
+
+============================================================================================
+  #48   [hotpotqa]
+
+  Q     The Church of England's Oxford Movement was opposed by a clergyman who wrote what
+        type of literature?
+  GOLD  devotional
+  ANS   The Church of England's Oxford Movement was opposed by a clergyman who wrote
+        devotional literature.
+
+  correct?  y
+
+============================================================================================
+  #49   [triviaqa]
+
+  Q     Ted Nevin, who died in 1992, was a leading authority in what sphere?
+  GOLD  ECONOMICS | Response probability | Economic theories | IG(X-M) | Modern economics
+  ANS   Ted Nevin was a leading authority in computer science.
+
+  correct?  n
+
+============================================================================================
+  #50   [hotpotqa]
+
+  Q     When is the birthday of the British-Irish heiress who worked on the Optimist In
+        Black studio album?
+  GOLD  9 November 1967
+  ANS   The British-Irish heiress who worked on the Optimist In Black studio album is Tori
+        Amos. She was born on August 17, 1964.
+
+  correct?  n
+
+============================================================================================
+  #51   [hotpotqa]
+
+  Q     Were both Eugene Dynkin and Vladimir Voevodsky mathematicians from Russia?
+  GOLD  yes
+  ANS   Yes, both Eugene Dynkin and Vladimir Voevodsky were mathematicians from Russia.
+
+  correct?  y
+
+============================================================================================
+  #52   [triviaqa]
+
+  Q     In musical terminology, what word describes sliding between two notes?
+  GOLD  GLISSANDO | Gliss | Bend (music) | Note bending | Glissandi
+  ANS   Slent.
+
+  correct?  n
+
+============================================================================================
+  #53   [hotpotqa]
+
+  Q     When did the event that led Marissa Kurtimah to flee her country of birth begin?
+  GOLD  1991
+  ANS   The event that led Marissa Kurtimah to flee her country of birth began in 2012,
+        with the outbreak of the Ebola virus in West Africa.
+
+  correct?  n
+
+============================================================================================
+  #54   [hotpotqa]
+
+  Q     Which tennis player is South African, Mariaan de Swardt or Kateryna Bondarenko?
+  GOLD  Mariaan de Swardt
+  ANS   Mariaan de Swardt
+
+  correct?  y
+
+============================================================================================
+  #55   [hotpotqa]
+
+  Q     Sand Lake Baptist Church is located in a hamlet with a population of what at the
+        2010 census?
+  GOLD  1,693
+  ANS   Sand Lake Baptist Church is located in the hamlet of Sand Lake, which had a
+        population of approximately 100 at the 2010 census.
+
+  correct?  n
+
+============================================================================================
+  #56   [triviaqa]
+
+  Q     "In which play by William Shakespeare does the quote ""All that glisters is not
+        gold"" appear?"
+  GOLD  'MERCHANT OF VENICE' | TMOV | Prince of Arragon | A Merchant of Venice | Gratiano
+  ANS   The quote "All that glisters is not gold" appears in William Shakespeare's play
+        "The Merchant of Venice" (Act 3, Scene 7).
+
+  correct?  y
+
+============================================================================================
+  #57   [hotpotqa]
+
+  Q     "The Empire Builder"'s Columbia River Subdivision was part of which line?
+  GOLD  Great Northern Railway
+  ANS   The Columbia River Subdivision, part of "The Empire Builder," was part of the
+        Great Northern Railway.
+
+  correct?  y
+
+============================================================================================
+  #58   [hotpotqa]
+
+  Q     Which artist was Italian, Sergio Leone or Jon Paul Puno?
+  GOLD  Sergio Leone
+  ANS   Sergio Leone
+
+  correct?  y
+
+============================================================================================
+  #59   [triviaqa]
+
+  Q     Who in the Bible, became the first drunken man after planting a vineyard?
+  GOLD  NOAH | Noah (album) | Noah (film) | noah film | noah album
+  ANS   In the Bible, Enoch became the first drunken man after planting a vineyard. This
+        story is found in Genesis 39:19-22.
+
+  correct?  n
+
+============================================================================================
+  #60   [triviaqa]
+
+  Q     What battle of the Middle Ages fought on Saint Crispin's Day has been immortalized
+        by a speech that references the day in a Shakespearean history play?
+  GOLD  Battle of Agincourt (1415) | The Battle of Agincourt | Battle of Agincourt |
+        Battle Agincourt | Battle of Azincourt
+  ANS   The Battle of Agincourt, fought on October 25, 1415 (Saint Crispin's Day), is
+        immortalized by a speech in Shakespeare's "Henry V," where the king refers to the
+        day as "Saint Crispin's Day" and emphasizes the significance of the battle.
+
+  correct?  y
+
+============================================================================================
+  #61   [triviaqa]
+
+  Q     Who wrote the 1968 novel ‘2001: A Space Odyssey’?
+  GOLD  Arthur C Clarke | Arthur C. Clarke | Clarke, Arthur C. | Arthur C. Clarke
+        Challenge Trophy Inter School Astronomy Quiz Competition | Ac clarke
+  ANS   Arthur C. Clarke.
+
+  correct?  y
+
+============================================================================================
+  #62   [hotpotqa]
+
+  Q     What type of comedian was cloned in a series centering on Mitchell Reynolds?
+  GOLD  stand-up
+  ANS   Stand-up.
+
+  correct?  y
+
+============================================================================================
+  #63   [triviaqa]
+
+  Q     Sir Basil Spence is associated with what activity?
+  GOLD  Architecture | Architecturally | Civil Architecture | Architecture (built
+        environment) | The Art and History of Architecture
+  ANS   Sir Basil Spence is associated with architecture.
+
+  correct?  y
+
+============================================================================================
+  #64   [hotpotqa]
+
+  Q     Are both Don Giovanni and Cardillac operas with three acts?
+  GOLD  no
+  ANS   Yes, both Don Giovanni and Cardillac are operas with three acts.
+
+  correct?  n
+
+============================================================================================
+  #65   [hotpotqa]
+
+  Q     What organization does Sandra Pizzarello and Doctorate have in common?
+  GOLD  University
+  ANS   Sandra Pizzarello and Doctorate are both musicians.
+
+  correct?  n
+
+============================================================================================
+  #66   [hotpotqa]
+
+  Q     What portrait hangs in the Smithsonian Institute along with what is known as the
+        founder of nursing?
+  GOLD  Sister Anthony, S.C.
+  ANS   The portrait that hangs in the Smithsonian Institute along with what is known as
+        the founder of nursing is that of Florence Nightingale.
+
+  correct?  n
+
+============================================================================================
+  #67   [triviaqa]
+
+  Q     Which root vegetable pie was named after a Minister of Food during World War II?
+  GOLD  WOOLTON (Pie) | Lord Woolton pie | Woolton pie
+  ANS   The root vegetable pie named after a Minister of Food during World War II is the
+        Minnow Pie.
+
+  correct?  n
+
+============================================================================================
+  #68   [triviaqa]
+
+  Q     Whose first solo UK number 1 single was I Only Have Eyes for You in September
+        1975?
+  GOLD  Art Garfunkel | Arthur Garfunkel | Garfunckel | Art Garfunkle | Garfunkl
+  ANS   Tom Jones.
+
+  correct?  n
+
+============================================================================================
+  #69   [triviaqa]
+
+  Q     Where are St. Peter's Basilica and the Sistine Chapel?
+  GOLD  Vatican City | Geology of the Vatican City | Christianity in Vatican City | People
+        of Vatican City | State of Vatican City
+  ANS   St. Peter's Basilica and the Sistine Chapel are located in Rome, Italy.
+
+  correct?  n
+
+============================================================================================
+  #70   [hotpotqa]
+
+  Q     Henry W. Bloch School of Management is named after the founder of an American tax
+        preparation company that is based where?
+  GOLD  Kansas City
+  ANS   Henry W. Bloch School of Management is named after the founder of the American tax
+        preparation company&R Block, which is based in Deerfield, Illinois.
+
+  correct?  n
+
+============================================================================================
+  #71   [hotpotqa]
+
+  Q     Which university offers more campuses in the Philippines, Fairleigh Dickinson
+        University or the Western Institute of Technology?
+  GOLD  Western Institute of Technology
+  ANS   The Western Institute of Technology offers more campuses in the Philippines.
+
+  correct?  y
+
+============================================================================================
+  #72   [hotpotqa]
+
+  Q     Who was the architect of a Dutch museum dedicated to the arts and history in
+        Amsterdam, located at the Museum Square?
+  GOLD  Petrus Josephus Hubertus (Pierre) Cuypers
+  ANS   The architect of the Dutch museum dedicated to the arts and history in Amsterdam,
+        located at the Museum Square, is Michel van Oost.
+
+  correct?  n
+
+============================================================================================
+  #73   [triviaqa]
+
+  Q     Which Japanese island that has its capital at Sapporo is the traditional home of
+        the Ainu people?
+  GOLD  Hokkaido | Hokkaidou prefecture | 北海道 | Hokkaido region | Bilkalberta
+  ANS   Hokkaido
+
+  correct?  y
+
+============================================================================================
+  #74   [triviaqa]
+
+  Q     The Archibald Fountain is in which Australian city?
+  GOLD  Sydney | Sydney, New South Wales, Australia | Sydneian | UN/LOCODE:AUSYD | Sydney
+        Australia
+  ANS   The Archibald Fountain is in Melbourne, Australia.
+
+  correct?  n
+
+============================================================================================
+  #75   [hotpotqa]
+
+  Q     What is the fourth most populous urban area in the Republic of Ireland and has the
+        housing estate Corrib Park?
+  GOLD  Galway
+  ANS   The fourth most populous urban area in the Republic of Ireland is Galway, which
+        has the housing estate Corrib Park.
+
+  correct?  y
+
+============================================================================================
+  #76   [hotpotqa]
+
+  Q     Which came first, Battle of Antietam or Battle of Guam?
+  GOLD  Battle of Antietam
+  ANS   Battle of Antietam (1862) before Battle of Guam (1944).
+
+  correct?  y
+
+============================================================================================
+  #77   [hotpotqa]
+
+  Q     Baltic Neopaganism was a religious movement that included which poet and humanist?
+  GOLD  Vilius Storostas-Vydūnas
+  ANS   Baltic Neopaganism was a religious movement that included the poet and humanist
+        Vytautius.
+
+  correct?  n
+
+============================================================================================
+  #78   [triviaqa]
+
+  Q     In which city was King George II born?
+  GOLD  Hanover | Hannovre | Hannover | Hanover, Germany | Hannover, Germany
+  ANS   King George II was born in London, England.
+
+  correct?  n
+
+============================================================================================
+  #79   [hotpotqa]
+
+  Q     Are both Microcachrys and Protea endemic to the same continent ?
+  GOLD  no
+  ANS   Yes, both Microcachrys and Protea are endemic to Africa.
+
+  correct?  n
+
+============================================================================================
+  #80   [hotpotqa]
+
+  Q     Were Illinois Institute of Technology and Boise State University both bounded
+        before 1950?
+  GOLD  yes
+  ANS   Yes, both Illinois Institute of Technology (IIT) and Boise State University (BSU)
+        were founded before 1950. IIT was founded in 1885, and BSU was founded in 1947,
+        although it began offering classes in 1945.
+
+  correct?  y
+
+============================================================================================
+  #81   [hotpotqa]
+
+  Q     In which city was this band formed, whose rhythm guitarist featured in "Cupid's
+        Chokehold?"
+  GOLD  Chicago
+  ANS   The band was formed in Sheffield, England.
+
+  correct?  n
+
+============================================================================================
+  #82   [triviaqa]
+
+  Q     "Who wrote the opera ""Gloriana"" for the coronation of Queen Elizabeth II?"
+  GOLD  Benjamin Britten | Britten, Benjamin | Benjamin, Baron Britten | Edward Benjamin
+        Britten | Ballets by Benjamin Britten
+  ANS   The opera "Gloriana" was written by Benjamin Britten.
+
+  correct?  y
+
+============================================================================================
+  #83   [triviaqa]
+
+  Q     Who set fire to his guitar at the Monterey Pop festival in 19676?
+  GOLD  Jimi Hendrix | Hendrix | Lithofayne Pridgeon | Early life of jimi hendrix |
+        Villanova Junction
+  ANS   Jim Morrison.
+
+  correct?  n
+
+============================================================================================
+  #84   [triviaqa]
+
+  Q     What is the number 17 in binary?
+  GOLD  10001 | ten thousand and one
+  ANS   1000001
+
+  correct?  n
+
+============================================================================================
+  #85   [triviaqa]
+
+  Q     ‘Impossible is nothing’ is the motto of which sportswear company?
+  GOLD  Adidas | Taylor-made | José + 10 | Addidas | Santiossage
+  ANS   Adidas.
+
+  correct?  y
+
+============================================================================================
+  #86   [hotpotqa]
+
+  Q     Which author lived longer, Nelson Algren or Nathanael West?
+  GOLD  Nelson Algren
+  ANS   Nelson Algren lived longer than Nathanael West.
+
+  correct?  y
+
+============================================================================================
+  #87   [triviaqa]
+
+  Q     In what mountain range would you find the homeland of the Sherpa people?
+  GOLD  Himalayas | Himilaya | Himalayan states | The Himalayas Mountains | Himalayan Mts.
+  ANS   The Sherpa people live in the Himalayas.
+
+  correct?  y
+
+============================================================================================
+  #88   [triviaqa]
+
+  Q     What is the name of the chain of islands in the southwestern Philippines?
+  GOLD  The Sulu Archipelago | Sulu (island) | Sulu Islands | Sulu archipelago | Sulu
+        Island
+  ANS   The chain of islands in the southwestern Philippines is called the Sulu Islands.
+
+  correct?  y
+
+============================================================================================
+  #89   [hotpotqa]
+
+  Q     What group did Carlene LeFevre and Rich LeFevre form in Brooklyn, New York City?
+  GOLD  the "First Family of Competitive Eating"
+  ANS   Carlene LeFevre and Rich LeFevre formed the group The Chemical Brothers.
+
+  correct?  n
+
+============================================================================================
+  #90   [hotpotqa]
+
+  Q     What does the organization associated with Carl Wieland believe about anything
+        other than the young earth view?
+  GOLD  a compromise on biblical inerrancy
+  ANS   The organization associated with Carl Wieland, known as the Young Earth Society,
+        primarily promotes the young Earth view, which holds that the Earth is
+        approximately 6,000 years old. They also advocate for creationism, the belief that
+        the universe and all living things were created by a divine being
+
+  correct?  n
+
+============================================================================================
+  #91   [triviaqa]
+
+  Q     What island is noted for its biodiversity and 80% unique wildlife due to more than
+        80 million years' isolation from continental land mass?
+  GOLD  Madagascar | Island of the moon | Health in Madagascar | Health care in Madagascar
+        | Madegasgar
+  ANS   The island noted for its biodiversity and 80% unique wildlife due to more than 80
+        million years' isolation from continental land mass is Madagascar.
+
+  correct?  y
+
+============================================================================================
+  #92   [triviaqa]
+
+  Q     "What is another name for ""mother of pearl""?"
+  GOLD  Nacre | Mother of pearl | Nachre | The Mother of Pearl Inlay | Mother-of-pearl
+  ANS   Nacre.
+
+  correct?  y
+
+============================================================================================
+  #93   [hotpotqa]
+
+  Q     What was the address of the building on U.S. Route 3 that was the tallest building
+        in New Hampshire when completed in 1972?
+  GOLD  1000 Elm Street
+  ANS   The address of the building on U.S. Route 3 that was the tallest building in New
+        Hampshire when completed in 1972 is 1000 Main Street.
+
+  correct?  n
+
+============================================================================================
+  #94   [triviaqa]
+
+  Q     In nature, what sort of bird is a 'Red Breasted Merganser'?
+  GOLD  A DUCK | The Duck | Ducked | Duck! | duck
+  ANS   The Red-breasted Merganser is a type of duck.
+
+  correct?  y
+
+============================================================================================
+  #95   [triviaqa]
+
+  Q     In 2009 to what did the United Kingdom’s largest insurance company, Norwich Union,
+        change its name?
+  GOLD  AVIVA | Aviva Plc | Aviva Public Limited Company | AmerUs | Aviva Life and Annuity
+        Company
+  ANS   Aviva.
+
+  correct?  y
+
+============================================================================================
+  #96   [triviaqa]
+
+  Q     "Who wrote the story ""A Christmas Carol""?"
+  GOLD  Charles Dickens | Charles Dickons | C Dickens | Charles John Huffam Dickens |
+        Dickens, Charles
+  ANS   Charles Dickens.
+
+  correct?  y
+
+============================================================================================
+  #97   [hotpotqa]
+
+  Q     Maria Curcio taught a classical pianist who is of what South American lineage?
+  GOLD  Argentine
+  ANS   Maria Curcio taught a Brazilian classical pianist.
+
+  correct?  n
+
+============================================================================================
+  #98   [hotpotqa]
+
+  Q     The Sentinelese language is the language of people of one of which Islands in the
+        Bay of Bengal?
+  GOLD  Andaman Islands
+  ANS   The Sentinelese language is spoken by the people of the North Sentinel Island in
+        the Bay of Bengal.
+
+  correct?  n
+
+============================================================================================
+  #99   [hotpotqa]
+
+  Q     Which game is a board game, Mensch ärgere dich nicht or Roulette?
+  GOLD  Mensch ärgere Dich nicht
+  ANS   Mensch ärgere dich nicht
+
+  correct?  y
+
+============================================================================================
+  #100  [hotpotqa]
+
+  Q     Renáta Tomanová and Larisa Neiland are former professional athletes for what
+        sport?
+  GOLD  professional tennis
+  ANS   Renáta Tomanová and Larisa Neiland are former professional tennis players.
+
+  correct?  y
+
