@@ -1,0 +1,1307 @@
+============================================================================================
+  TRIAGE - Step 18: Dream failure-mode labelling worksheet
+============================================================================================
+
+  THE FOUR LABELS
+
+   L  locked-in     ONE wrong answer from early on, held to the end.
+                    The trace barely changes.
+
+   I  interleaving  the RIGHT answer appears in the trace, then is
+                    dropped. Look for the  <-- GOLD  marker.
+
+   C  inconsistent  the trace CHURNS between several different answers
+                    and settles on a wrong one.
+
+   X  neither       not a hallucination at all: the model restates the
+                    question, copies a word from it, runs out of
+                    budget, or is actually CORRECT and the matcher
+                    disagreed.
+
+  HOW TO READ A TRACE
+
+  Each line is what the model WOULD have said at those rounds, before
+  it committed anything. Rounds where nothing changed are collapsed,
+  so  r13-r40  means the same guess held for 28 rounds.
+
+  L vs C is the usual hard call: L is one answer held, C is several
+  answers tried. If the trace shows two or three DIFFERENT wrong
+  answers, that is C, not L.
+
+  Send back one line of 60 labels, in order, separated by spaces:
+      L C C X I C L ...
+
+  The classifier's verdicts are NOT in this file, deliberately.
+  Do not open step17d_dream_modes.csv before labelling.
+
+============================================================================================
+  #1    [commonsenseqa]
+
+  Q     Where might an unused chess set be stored?
+  GOLD  cupboard | E
+  ANS   Attic
+
+  TRACE
+    r00-r03    | D.'t
+    r04-r07    | Dic and
+    r08-r51    | Attic and
+    r52-r53    | Attic
+    r54-r59    | Attic and
+    r60-r62    | Attic
+    r63        | Dic
+
+  label?  L
+
+============================================================================================
+  #2    [hotpotqa]
+
+  Q     Giselle Cossard was known as Mother Giselle of what type of diety?
+  GOLD  major water deity
+  ANS   Christian
+
+  TRACE
+    r00-r01    | Mother G
+    r02-r03    | Mother G and
+    r04        | Christian and
+    r05        | V and
+    ...        | (9 unchanged spans)
+    r42-r45    | Christian and
+    r46        | Christian
+    r47-r55    | Christian and
+    r56-r63    | Christian
+
+  label?  L
+
+============================================================================================
+  #3    [triviaqa]
+
+  Q     Who was the last Briton to win the Nobel Prize for Literature?
+  GOLD  Doris Lessing | Jane Somers | Briefing for a Descent into Hell | Doris Lessig |
+        Lessing, Doris
+  ANS   The last Briton to win the Nobel Prize for Literature was Patrick White.
+
+  TRACE
+    r00        | The laston Nobel Literature Literature
+    r01-r05    | The last Briton to win the Nobel Prize for Literature was John2. a
+    r06        | The last Briton to win the Nobel Prize for Literature was John. an
+    r07-r08    | The last Briton to win the Nobel Prize for Literature was John2. a
+    ...        | (11 unchanged spans)
+    r51-r52    | The last Britishon to win the Nobel Prize for Literature was Sir W
+    r53        | The last Britishon to win the Nobel Prize for Literature was Patri
+    r54-r55    | The last Briton to win the Nobel Prize for Literature was was Whit
+    r56-r63    | The last Britishon to win the Nobel Prize for Literature was Sir W
+
+  label?  C
+
+============================================================================================
+  #4    [triviaqa]
+
+  Q     What is the residence of the Duke of Devonshire?
+  GOLD  CHATSWORTH HOUSE | Chatsworth Library | Devonshire Collection
+  ANS   The Duke of Devonshire
+
+  TRACE
+    r00        | The Duke of Devonshireshireshireshire
+    r01        | D Duke of Devonshire and
+    r02-r07    | The Castle of Devonshire and
+    r08        | The of Devonshire and
+    r09-r10    | The Castle of Devonshire and and
+    r11-r34    | The of Devonshire and
+    r35-r36    | The Castle of Devonshire and
+    r37-r40    | The of Devonshire and
+    r41-r46    | The Duke of Devonshire and
+    r47-r51    | The Duke of Devonshire
+    r52-r59    | The Duke of Devonshire and
+    r60-r63    | The Duke of Devonshire
+
+  label?  X
+
+============================================================================================
+  #5    [hotpotqa]
+
+  Q     Are both Days of the New and TV on the Radio from New York?
+  GOLD  no
+  ANS   Yes.
+
+  TRACE
+    r00        | Yes,
+    r01-r03    | Yes, and
+    r04-r59    | Yes. and
+    r60-r63    | Yes.
+
+  label?  L
+
+============================================================================================
+  #6    [hotpotqa]
+
+  Q     How many episodes were in the 23rd season of a Fox network show which, in it's
+        twenty-second season, aired it's twenty-first episode which was written by John
+        Frink and directed by Bob Anderson.
+  GOLD  22 episodes.
+  ANS   20 episodes
+
+  TRACE
+    r00        | The 't
+    r01        | 1 episodes
+    r02-r03    | 2 episodes and
+    r04        | 1 episodes and
+    ...        | (4 unchanged spans)
+    r25-r27    | 22 episodes and   <-- GOLD
+    ...        | (4 unchanged spans)
+    r29-r41    | 20 and
+    r42        | 22 and
+    r43-r62    | 20 and
+    r63        | 20
+
+  label?  I
+
+============================================================================================
+  #7    [hotpotqa]
+
+  Q     Were both Prince and Patty Jenkins have been inducted into the Rock and Roll Hall
+        of Fame?
+  GOLD  no
+  ANS   Yes, both Prince and Patty Jenkins have been inducted into the Rock and Roll Hall
+        of Fame.
+
+  TRACE
+    r00-r03    | Yes, Prince Prince been in in into the into the the Roll of of't
+    r04        | Yes, both Prince and Patty in have been into into the and
+    r05        | Yes, Prince Prince and Patty in have been in into into and
+    r06-r09    | Yes, both Prince and Patty Jenkins, been inducted into the Rock an
+    ...        | (12 unchanged spans)
+    r44-r45    | Yes, both Prince and Patty Jenkins have been ined into the Rock an
+    r46-r54    | Yes, both Prince and Patty Jenkins have been ined into the Rock an
+    r55-r62    | Yes, both Prince and Patty Jenkins have been inducted into the Roc
+    r63        | Yes, both Prince and Patty Jenkins have been inducted into the Roc
+
+  label?  L
+
+============================================================================================
+  #8    [hotpotqa]
+
+  Q     In Ancient Egyptian religion how would a citizen be weighted to decide if they
+        where worthy of damnation and would face the torment in the lake of fire ?
+  GOLD  against the feather of truth
+  ANS   In Ancient Egyptian religion, the deceased would go to the Hall of Maat, or the
+        Hall of Truths, where their heart would be weighed against the feather of Maat. If
+        the heart weighed more than the feather, the deceased would be deemed worthy of
+        damnation damnation and would face the lake of fire.
+
+  TRACE
+    r00-r01    | In Ancient Egyptian religion, the the the the the the the the the 
+    r02        | In Ancient Egyptian religion, the feather of the the, the the the 
+    r03        | In Ancient Egyptian religion, the weighing of the the the the the 
+    r04-r06    | In Ancient Egyptian religion, the weighing of the the the the the 
+    ...        | (29 unchanged spans)
+    r59-r60    | In Ancient Egyptian religion, the dead would go to the Os of Maat,
+    r61        | In Ancient Egyptian religion, the dead would go to the Os of Maat,
+    r62        | In Ancient Egyptian religion, the dead would go to the Os of Maat,
+    r63        | In Ancient Egyptian religion, the dead would go to the Du of Maat,
+
+  label?  X
+
+============================================================================================
+  #9    [hotpotqa]
+
+  Q     The Kilby International Awards were named after the inventor who discovered what
+        electronics phenomenon?
+  GOLD  integrated circuit
+  ANS   The Kilby International Awards were named after Jack Kilby.
+
+  TRACE
+    r00        | The Kilby
+    r01        | The Kilby International Awards were named after Jack inventor and
+    r02-r03    | The Kilby International Awards were named after the inventor and
+    r04-r07    | The Kilby International Awards were named after Jack Kil and
+    ...        | (13 unchanged spans)
+    r39-r48    | The Kilby International Awards were named after inventor Kilby. an
+    r49-r55    | The Kilby International Awards were named after Kilby.
+    r56-r59    | The Kilby International Awards were named after Jack Kilby. and
+    r60-r63    | The Kilby International Awards were named after Jack Kilby.
+
+  label?  X
+
+============================================================================================
+  #10   [hotpotqa]
+
+  Q     The Black Star identified closely with this American magazine magnate who was
+        called what?
+  GOLD  the most influential private citizen in the America of his day"
+  ANS   John R. Johnson
+
+  TRACE
+    r00-r01    | The Black
+    r02        | Har.. and
+    r03-r05    | Harry W. and
+    r06-r09    | John W. and
+    r10-r11    | John R. and
+    r12-r15    | John A. Mur and
+    r16        | John A. Johnson and
+    r17-r24    | John.. Johnson and
+    r25        | John R. Johnson and
+    r26-r28    | John R. Johnson and and
+    r29-r53    | John R. Johnson and
+    r54-r63    | John R. Johnson
+
+  label?  C
+
+============================================================================================
+  #11   [hotpotqa]
+
+  Q     Between Harvey Pekar and Denise Levertov who was born earlier?
+  GOLD  Denise Levertov
+  ANS   Harvey Pekar was born earlier.
+
+  TRACE
+    r00-r04    | Harise Pvertar was born earlier. 
+    r05-r07    | Denise Pvertar was born. and
+    r08-r09    | Denise Pvertar was born earlier. and
+    r10-r16    | Denise Pvertar  born earlier. and
+    ...        | (8 unchanged spans)
+    r55        | Harvey Pekar was born earlier. and and
+    r56-r59    | Harvey Pekar was born earlier. and
+    r60        | Harvey Pekar was born earlier.
+    r61-r63    | Harvey Par was born earlier.
+
+  label?  I
+
+============================================================================================
+  #12   [triviaqa]
+
+  Q     The 'naut' in the words 'astronaut' and 'aeronaut' meant originally what?
+  GOLD  Sailor | Merchant mariner | Sailors | Seafarers | Boatmen
+  ANS   sail
+
+  TRACE
+    r00-r04    | Theailaut
+    r05-r09    | Sail and
+    r10-r12    | sail and
+    r13-r21    | Sail and
+    r22-r35    | sail and
+    r36-r37    | sail and and
+    r38-r41    | sail and
+    r42        | sail
+    r43-r53    | sail and
+    r54-r57    | toail and
+    r58-r61    | sail and
+    r62-r63    | sail
+
+  label?  L
+
+============================================================================================
+  #13   [commonsenseqa]
+
+  Q     Sally was bored because she didn't like the junk that was on what?
+  GOLD  television | E
+  ANS   bed
+
+  TRACE
+    r00-r03    | B.
+    r04-r07    | B. and
+    r08        | C. and
+    r09-r20    | bed and
+    r21-r23    | television and   <-- GOLD
+    r24-r46    | bed and
+    r47-r49    | bed
+    r50-r51    | bed and
+    r52-r63    | bed
+
+  label?  I
+
+============================================================================================
+  #14   [hotpotqa]
+
+  Q     What American regional sports cable and satellite television network does American
+        television sports personality Charlie Moore host two shows on?
+  GOLD  NESN (New England Sports Network)
+  ANS   Fox Sports
+
+  TRACE
+    r00        | The Sports
+    r01-r10    | Charlie Sports and
+    r11-r12    | Charlie Sports and and
+    r13-r19    | ESPN Sports and
+    r20        | ESPN Sports and and
+    r21-r45    | ESPN Sports and
+    r46-r48    | ESPN Sports and and
+    r49-r54    | ESPN Sports and
+    r55        | Fox and
+    r56-r60    | Fox Sports and
+    r61-r63    | Fox Sports
+
+  label?  C
+
+============================================================================================
+  #15   [hotpotqa]
+
+  Q     The musician who did "Khalaara" was born on what date?
+  GOLD  15 March 1983
+  ANS   The musician who did "Khalaara" was born on
+
+  TRACE
+    r00        | The musician who did " "alaara""'t
+    r01        | The musician who did "ala" was born and
+    r02        | The musician who did " "alaara" was born on on      and
+    r03        | The musician who did "Khalaara" was born on  1,   and
+    ...        | (5 unchanged spans)
+    r41        | The musician who did "Khaara" was born on
+    r42-r43    | The musician who did "Khaara" was born on and
+    r44-r58    | The musician who did "Khaara" was born on
+    r59-r63    | The musician who did "Khalaara" was born on
+
+  label?  X
+
+============================================================================================
+  #16   [hotpotqa]
+
+  Q     The most famous song of the last monarch of Hawaii was what?
+  GOLD  Aloha ʻOe
+  ANS   "Alohaha Oe"
+
+  TRACE
+    r00        | " most famous
+    r01        | HAhahaha and
+    r02        | `Klohaha and
+    r03        | ‘Ulohaha and
+    ...        | (15 unchanged spans)
+    r49-r50    |  "‘lohaa Oe"
+    r51-r57    |  "‘lohae Oe"
+    r58-r59    |  "Anlohae Oe"
+    r60-r63    |  "Alohae Oe"
+
+  label?  C
+
+============================================================================================
+  #17   [hotpotqa]
+
+  Q     Which two teams did the the head coach of The 2007 San Diego State Aztecs play for
+        professionally?
+  GOLD  Detroit Lions and the Los Angeles Rams
+  ANS   The head coach of the The 2007 San Diego State Aztecs
+
+  TRACE
+    r00        | The head coach of the 2007 San San State San
+    r01        | The head coach coach of the 2007  Diego State Aztecs played for pr
+    r02        | The head head of of The 2007  Diego State Aztecs played for profes
+    r03        | The head coach of of The 2007  Diego State Aztecs played for profe
+    ...        | (18 unchanged spans)
+    r59        | The head coach of the  2007 San Diego Aztecs
+    r60        | The head coach of the  007 San Diego Aztecs
+    r61-r62    | The head coach of the The 003 San Diego State Aztecs
+    r63        | The head coach of the  2007 San Diego State Aztecs
+
+  label?  X
+
+============================================================================================
+  #18   [triviaqa]
+
+  Q     Which year saw the assassination of US President James Garfield?
+  GOLD  1881 | one thousand, eight hundred and eighty-one | one thousand eight hundred and
+        eighty one
+  ANS   1889
+
+  TRACE
+    r00-r02    | 1889
+    r03-r09    | 1888 and
+    r10-r38    | 1881 and   <-- GOLD
+    r39        | 1881   <-- GOLD
+    r40-r45    | 1881 and   <-- GOLD
+    r46-r48    | 1889
+    r49        | 1881   <-- GOLD
+    r50-r63    | 1889
+
+  label?  I
+
+============================================================================================
+  #19   [hotpotqa]
+
+  Q     Alex da Kid worked on an a track with Eminem released in what year?
+  GOLD  2010
+  ANS   2020
+
+  TRACE
+    r00        | 201
+    r01        | 20 Kid and
+    r02        | 2013 and
+    r03-r05    | 2010 and   <-- GOLD
+    r06-r36    | 2020 and
+    r37-r40    | 2020
+    r41-r51    | 2020 and
+    r52-r62    | 202
+    r63        | 2020
+
+  label?  I
+
+============================================================================================
+  #20   [triviaqa]
+
+  Q     John and David Lloyd represented Great Britain in the early 1970s at what sport?
+  GOLD  Tennis | Lawn tennis | Tenniz | Tenis | Lawn-Tennis
+  ANS   Cycling
+
+  TRACE
+    r00-r01    | C and
+    r02        | Tycling and
+    r03-r04    | gycling and
+    r05-r12    | Tycling and
+    ...        | (5 unchanged spans)
+    r31        | Tycling and
+    r32        | Cc and
+    r33-r52    | Cycling and
+    r53-r63    | Cycling
+
+  label?  L
+
+============================================================================================
+  #21   [triviaqa]
+
+  Q     Which is the first of the four stations on a standard Monopoly Board after passing
+        Go?
+  GOLD  KING'S CROSS | Kings Cross | King’s Cross | king s cross
+  ANS   Reading
+
+  TRACE
+    r00        | The first
+    r01        | Reading Street
+    r02-r23    | Reading and
+    r24-r26    | Reading and and
+    r27-r58    | Reading and
+    r59-r63    | Reading
+
+  label?  L
+
+============================================================================================
+  #22   [hotpotqa]
+
+  Q     Naval Air Station Ellyson Field was an auxiliary facility to the air station in
+        which community?
+  GOLD  Warrington
+  ANS   Hilo
+
+  TRACE
+    r00        | Elal Air Elson
+    r01-r04    | Hal El and
+    r05-r08    | Hal and
+    r09-r10    | H Harbor and
+    ...        | (7 unchanged spans)
+    r48-r49    | Hick
+    r50-r52    | Hick and
+    r53-r54    | Hilo and
+    r55-r63    | Hilo
+
+  label?  C
+
+============================================================================================
+  #23   [hotpotqa]
+
+  Q     The Argentine National Anthem was adopted 3 years after which event that led to
+        the removal of Viceroy Baltasar Hildalgo de Cisneros?
+  GOLD  May Revolution
+  ANS   1 of May
+
+  TRACE
+    r00-r01    | The  of the was
+    r02-r03    | The of of and
+    r04-r06    | The May of and
+    r07        | The of of and
+    ...        | (9 unchanged spans)
+    r31-r35    | The of May Revolution and   <-- GOLD
+    r36        | The of May Revolution   <-- GOLD
+    r37        | The of May Revolution and   <-- GOLD
+    r38        | The of May Revolution   <-- GOLD
+    r39        | 9 of May Revolution and   <-- GOLD
+    r40-r45    | The of May Revolution and   <-- GOLD
+    ...        | (9 unchanged spans)
+    r47-r50    | 1 of May Revolution and   <-- GOLD
+    r51-r52    | 1 of May and
+    r53-r55    | 1st May and
+    r56-r62    | 15 May
+    r63        | 1 of May
+
+  label?  I
+
+============================================================================================
+  #24   [commonsenseqa]
+
+  Q     What would friends do if they need each others' help?
+  GOLD  group together | B
+  ANS   A. call each other
+
+  TRACE
+    r00        | A. call each other
+    r01-r35    | A. call each other and
+    r36-r38    | A. call each other and and
+    r39-r56    | A. call each other and
+    r57        | A. call each other
+    r58-r60    | A. call each other and
+    r61-r63    | A. call each other
+
+  label?  L
+
+============================================================================================
+  #25   [triviaqa]
+
+  Q     Whose portrait is to appear on the new £10 note due to be issued in 2017?
+  GOLD  Jane Austen | Austen, Jane | Mrs. Ann Cawley | Jane Austen Society | austen jane
+  ANS   Charles Darwin.
+
+  TRACE
+    r00        | The portrait of
+    r01-r02    | The Elizabeth and
+    r03        | The and
+    r04        | Theill and
+    ...        | (10 unchanged spans)
+    r48-r51    | Charles Charles. and
+    r52-r59    | Charles Charles.
+    r60-r61    | Charles Charles. and
+    r62-r63    | Charles Darwin.
+
+  label?  C
+
+============================================================================================
+  #26   [hotpotqa]
+
+  Q     Which award did the Tunisian-Dutch actor that starred in Collide win?
+  GOLD  Best Actor in 2013
+  ANS   Golden Globe
+
+  TRACE
+    r00-r01    | The Bestianutch
+    r02        | The Best and
+    r03-r20    | Best Best and
+    r21-r24    | Best Best Award and
+    r25        | Best Best and
+    r26        | Golden Globe and
+    r27-r35    | Golden Globe Award and
+    r36-r40    | Golden Globe and
+    r41-r45    | Golden Globe Award and
+    r46-r54    | A Globe and
+    r55-r63    | A Globe
+
+  label?  C
+
+============================================================================================
+  #27   [hotpotqa]
+
+  Q     Snowdrop is a proprietary game engine first revealed with an online-only action
+        role-playing video game developed by who?
+  GOLD  Massive Entertainment
+  ANS   Square
+
+  TRACE
+    r00        | Snowdrop
+    r01        | The En and
+    r02        | Thestar and
+    r03-r05    | The and
+    r06-r09    | Microsoft and
+    r10        | Square and
+    r11-r12    | Microsoft and
+    r13-r22    | Square and
+    r23-r24    | Square and and
+    r25-r47    | Square and
+    r48-r63    | Square
+
+  label?  C
+
+============================================================================================
+  #28   [hotpotqa]
+
+  Q     The actress who portrayed C. C. Babcock on "The Nanny" played alongside which
+        actor who portrayed Punk #1 in "Interface"?
+  GOLD  Lou Diamond Phillips
+  ANS   John Stamos
+
+  TRACE
+    r00-r05    | The actress who portrayed't
+    r06-r07    | The. and
+    r08-r11    | K and
+    r12-r17    | David St and
+    r18-r57    | John Stamos and
+    r58-r63    | John Stamos
+
+  label?  C
+
+============================================================================================
+  #29   [hotpotqa]
+
+  Q     The Little Missouri River rises west of a laccolithic butte that stands how many
+        feet from summit to base?
+  GOLD  867
+  ANS   1,000 feet
+
+  TRACE
+    r00        | 1,000
+    r01-r05    | 1,0 feet and
+    r06-r32    | 1,000 feet and
+    r33-r35    | 1,000 feet and and
+    r36-r44    | 1,000 feet and
+    r45        | 1,000 feet
+    r46-r59    | 1,000 feet and
+    r60-r63    | 1,00 feet
+
+  label?  L
+
+============================================================================================
+  #30   [hotpotqa]
+
+  Q     Who is the psychologist who wrote about the disciple of the person known as the
+        "Wild Woman of Buttle"?
+  GOLD  James G. Kiernan
+  ANS   John B. Watson
+
+  TRACE
+    r00-r01    | The psychologist.
+    r02-r14    | John psychologist. and
+    r15        | John B. and
+    r16-r26    | John B. Watson and
+    r27-r36    | John B. and
+    r37        | John B. Watson and
+    r38-r43    | John B. and
+    r44-r56    | John B. Watson and
+    r57-r63    | John B. Watson
+
+  label?  L
+
+============================================================================================
+  #31   [hotpotqa]
+
+  Q     Who has won the most Olympic medals for figure skating, Debi Thomas or Katarina
+        Witt?
+  GOLD  Katarina Witt
+  ANS   Debi Thomas
+
+  TRACE
+    r00        | Katarina Witt has won medals medals   <-- GOLD
+    r01        | Katarina Witt has and   <-- GOLD
+    r02-r03    | Katar Thomas Witt and
+    r04-r12    | Katarina Witt and   <-- GOLD
+    r13-r14    | Katar Thomas Witt and and
+    r15-r30    | Debi Thomas and
+    r31-r41    | De. Thomas and
+    r42-r44    | De. Thomas
+    r45-r56    | De. Thomas and
+    r57-r58    | De. Thomas
+    r59-r61    | De De Thomas and
+    r62-r63    | Debi Thomas
+
+  label?  I
+
+============================================================================================
+  #32   [hotpotqa]
+
+  Q     What actor from the show Murphy Brown also had a role in a show with fellow actor
+        Steve Howey?
+  GOLD  Christopher Rich
+  ANS   Jason Alexander
+
+  TRACE
+    r00-r03    | The How
+    r04-r26    | John O and
+    r27-r28    | John She and
+    r29-r37    | John Alexander and
+    r38-r42    | Jason Jason and
+    r43-r53    | Jason Alexander and
+    r54-r63    | Jason Alexander
+
+  label?  C
+
+============================================================================================
+  #33   [hotpotqa]
+
+  Q     Who is younger, Dan Bejar and Makoto Koshinaka?
+  GOLD  Makoto, born July 15, 1980
+  ANS   Dan Bejar is younger.
+
+  TRACE
+    r00        | Dan Bejar Kinaka is
+    r01        | Danakoto Kinaka is and
+    r02-r04    | Makoto Kinaka is and
+    r05        | Makoto Kinin is and
+    ...        | (11 unchanged spans)
+    r52-r58    | Dan Bejar is younger. and
+    r59-r60    | Dan Bejar is younger.
+    r61        | Dan Bejar is younger. and
+    r62-r63    | Dan Bejar is younger.
+
+  label?  C
+
+============================================================================================
+  #34   [hotpotqa]
+
+  Q     Are both Barry Unsworth and P. G. Wodehouse from the same country?
+  GOLD  yes
+  ANS   Both Barry Unsworth and P. G. Wodehouse are British.
+
+  TRACE
+    r00-r01    | No,sworthsworth.
+    r02-r06    | No, Barrysworthsworth. and
+    r07-r08    | Barry Unsworth is P. G. W.house are from the and
+    r09-r11    | Barry Unsworth and P. G. W.house are from the and
+    ...        | (14 unchanged spans)
+    r59        | Both authors Unsworth and P.. Wodehouse are British.
+    r60-r61    | Both Barry Unworth and P. G. Wodehouse are British.
+    r62        | Both Barry Un Un and P. G. Wodehouse are British.
+    r63        | Both Barry Unworth and P. G. Wodehouse are British.
+
+  label?  L
+
+============================================================================================
+  #35   [triviaqa]
+
+  Q     What is the equivalent Royal Navy rank to the Army's Major?
+  GOLD  Rear Admiral | Rear Admiral Upper Half | Read Admiral | Kontradmiral | R. Adm.
+  ANS   Commander
+
+  TRACE
+    r00        | The equivalent Royal
+    r01-r04    | The Royal and
+    r05-r10    | Commander and
+    r11-r39    | Commandterm and
+    r40-r41    | Commandterm and and
+    r42-r43    | Commandterm and
+    r44        | Commandterm
+    r45-r49    | Commander
+    r50        | Commander and
+    r51-r54    | Commander
+    r55-r56    | Commander and
+    r57-r63    | Commander
+
+  label?  L
+
+============================================================================================
+  #36   [hotpotqa]
+
+  Q     The Julian P. Kanter Political Commercial Archive has been designated an official
+        project by an initiative to preserve and protect what?
+  GOLD  historic buildings, arts, and published works
+  ANS   The Julian P. Kanter Political Commercial Archive has been designated an official
+        project by an initiative to preserve and protect political commercials.
+
+  TRACE
+    r00-r02    | The initiative P. Kanter
+    r03-r05    | The Julian P. Kanter Political Commercial Archive and
+    r06        | The Julian P. Kanter Commercial Archive has been designated an off
+    r07-r09    | The Julian P. Kanter Commercial Archive has been designated an off
+    ...        | (14 unchanged spans)
+    r60        | The Julian P. Kanter's Commercial Archive is been designated an of
+    r61        | The Julian P. Kanter's Commercial Archive is been an official proj
+    r62        | The Julian P.ter's Commercial Archive is been an official project 
+    r63        | The Julian P. Kan's Commercial Archive is been designated an proje
+
+  label?  X
+
+============================================================================================
+  #37   [commonsenseqa]
+
+  Q     What did the policemen do when they heard a cry from a distance?
+  GOLD  help | E
+  ANS   B. hurry along
+
+  TRACE
+    r00-r01    | B. help   <-- GOLD
+    r02-r04    | E. help and   <-- GOLD
+    r05-r06    | E. help and and   <-- GOLD
+    r07        | B. hurry and
+    r08-r09    | B. help and   <-- GOLD
+    r10        | B. help and and   <-- GOLD
+    r11-r19    | B. help and   <-- GOLD
+    r20-r21    | B. help and and   <-- GOLD
+    r22-r36    | B. help and   <-- GOLD
+    ...        | (1 unchanged spans)
+    r46        | B. hurry along
+    r47-r51    | B. hurry along and
+    r52-r56    | B. hurry along
+    r57-r63    | B. along
+
+  label?  I
+
+============================================================================================
+  #38   [hotpotqa]
+
+  Q     Who was Germany's large-scale, low strength fortification unit, disbanded in 1919,
+        named after?
+  GOLD  Menges
+  ANS   Rineland
+
+  TRACE
+    r00        | The's
+    r01-r02    | The von and
+    r03-r04    | Theried and
+    r05-r12    | Theried von and
+    ...        | (7 unchanged spans)
+    r37-r39    | Hessot and
+    r40-r41    | Heoteland and
+    r42-r55    | Rlandeland and
+    r56-r63    | Rineland
+
+  label?  C
+
+============================================================================================
+  #39   [commonsenseqa]
+
+  Q     What might result in an unsuccessful suicide attempt?
+  GOLD  interruption | B
+  ANS   erruption
+
+  TRACE
+    r00        | B. interruption   <-- GOLD
+    r01-r02    | B.ption and
+    r03-r04    | erruation and
+    r05        | erruerm and
+    ...        | (12 unchanged spans)
+    r56        | intu1
+    r57-r59    | intuember
+    r60-r62    | intuption
+    r63        | Buption
+
+  label?  I
+
+============================================================================================
+  #40   [hotpotqa]
+
+  Q     What is the title of the person who is Head of the Department of Biological
+        Sciences at the University of Lincoln
+  GOLD  Doctor
+  ANS   Head of Department of Biological Sciences
+
+  TRACE
+    r00        | The of the Sciences
+    r01-r03    | Head of the Department Sciences and
+    r04-r05    | Head of the and
+    r06-r07    | Head of Sciences and
+    ...        | (6 unchanged spans)
+    r26-r30    | Head of Department of Biological Sciences and
+    r31        | Head of Department of Biological Sciences and and
+    r32-r52    | Head of Department of Biological Sciences and
+    r53-r63    | Head of Department of Biological Sciences
+
+  label?  X
+
+============================================================================================
+  #41   [hotpotqa]
+
+  Q     Cyrina Fiallo has guest starred on which Michael Jacobs-created sitcom?
+  GOLD  Girl Meets World
+  ANS   Friends
+
+  TRACE
+    r00        | Cyrial
+    r01-r02    | The's and
+    r03-r06    | The and
+    r07-r31    | Friends and
+    r32        | Friends and and
+    r33-r50    | Friends and
+    r51-r63    | Friends
+
+  label?  L
+
+============================================================================================
+  #42   [triviaqa]
+
+  Q     Which racehorse, unbeaten in 14 races, won an unprecedented 9 consecutive Group
+        One races including the 2,000 Guineas in 2011 and is the highest ever rated by
+        Timeform?
+  GOLD  Frankel | Franckel
+  ANS   Davie
+
+  TRACE
+    r00-r01    | C.
+    r02-r03    | Cav and
+    r04-r15    | Destil and
+    r16-r26    | Dogado and
+    r27        | Destado and
+    r28-r37    | Dogado and
+    r38        | Destado and
+    r39-r45    | Dogado and
+    r46-r51    | Davie and
+    r52-r53    | Davie
+    r54-r60    | Davie and
+    r61-r63    | Davie
+
+  label?  C
+
+============================================================================================
+  #43   [hotpotqa]
+
+  Q     Which minor role did this New Zealand storyboard artist play in the film "King
+        Kong" who will direct the film based on the novel by Philip Reeve?
+  GOLD  Gondorian soldier
+  ANS   Writer
+
+  TRACE
+    r00-r01    | The Jackson
+    r02        | The Jackson and
+    r03        | Peter Jackson and
+    r04-r06    | The and
+    r07        | He and
+    r08-r11    | He and and
+    r12-r14    | He and
+    r15-r17    | Writer and
+    r18-r23    | Director and
+    r24-r49    | Writer and
+    r50-r62    | Writer
+    r63        | Writer Jackson3
+
+  label?  C
+
+============================================================================================
+  #44   [triviaqa]
+
+  Q     KHI is the international code for which Asian airport?
+  GOLD  Karachi | Anklesaria Hospital | Sikandar Hayat Khan Sherpao | Karachi district |
+        Iqbal Shaheed Road
+  ANS   KHI is the international code for the Delhi Airport.
+
+  TRACE
+    r00-r01    | Khi International for
+    r02-r19    | Khi International and
+    r20        | KHI is the code for International International and
+    r21-r24    | KHI is the international code for the International International.
+    ...        | (3 unchanged spans)
+    r42-r43    | KHI is the international code for the Delhi Karachi. and   <-- GOLD
+    r44-r51    | KHI is the international code for the Karachi Karachi. and   <-- GOLD
+    r52-r54    | KHI is the international code for the Delhi Karachi.   <-- GOLD
+    r55        | KHI is the international code for the Karachi Karachi.   <-- GOLD
+    r56        | KHI is the international code for the Delhi Karachi.   <-- GOLD
+    r57-r58    | KHI is the India code for the Delhi Airport.
+    r59        | KHI is the code for the Delhi Airport.
+    r60-r63    | KHI is the international code for the Delhi Airport.
+
+  label?  I
+
+============================================================================================
+  #45   [hotpotqa]
+
+  Q     What season of the Indian reality TV series "Big Boss" did the model Lopamundra
+        Raut compete in?
+  GOLD  the tenth season
+  ANS   Lopamundra Raut competed in the first season of "Big Boss."
+
+  TRACE
+    r00        | Lopamundra Rundra in
+    r01        | Lopamundra Raut and
+    r02        | Lopamundra Raut in and
+    r03-r05    | Lopamundra Raut competed in season  season of " " and
+    ...        | (13 unchanged spans)
+    r53-r55    | Lopamundra R participated in the season of "Big Boss." and
+    r56-r59    | Lopamundra R participated in the and season of "Big Boss."
+    r60        | Lopamundra Raut participated in the first season of "Big Boss."
+    r61-r63    | Lopamundra R participated in the first season of "Big Boss."
+
+  label?  L
+
+============================================================================================
+  #46   [hotpotqa]
+
+  Q     What is one risk to Norway's financial reserve?
+  GOLD  terrorist activity
+  ANS   oil prices
+
+  TRACE
+    r00        | One risk to Norway's financial financial
+    r01-r02    | One risk to Norway's financial and
+    r03        | One risk to Norway financial and
+    r04-r05    | The in in and and
+    ...        | (5 unchanged spans)
+    r38-r41    | low prices and
+    r42-r43    | drop prices and
+    r44-r57    | low prices and
+    r58-r63    | high prices
+
+  label?  C
+
+============================================================================================
+  #47   [triviaqa]
+
+  Q     Which palace, built by Cardinal Wolsey, was home to Henry 8th and is supposedly
+        haunted by two of his wives?
+  GOLD  Hampton Court | Hampton Court Palace Maze | Hampton Court Palace | Chapel Royal
+        (Hampton Court Palace) | Hampton Court Gardens
+  ANS   The Hampton Palace
+
+  TRACE
+    r00        | Kpton Palace
+    r01-r06    | K Hampton Palace and
+    r07-r20    |  Hampton Hampton Palace and
+    r21        | West Hampton Palace and
+    r22-r35    |  Hampton Hampton Palace and
+    r36-r38    | West Hampton Palace and
+    r39-r40    |  Hampton Hampton Palace and
+    r41-r45    | The Court and
+    r46-r53    | The Hampton Court and   <-- GOLD
+    r54-r55    | The Hampton Palace
+    r56-r63    | The Hampton Court   <-- GOLD
+
+  label?  I
+
+============================================================================================
+  #48   [hotpotqa]
+
+  Q     The Porsche 968 was the last in a line of front-engined sports cars following the
+        944 and which earlier model?
+  GOLD  924
+  ANS   Porsche 928
+
+  TRACE
+    r00        | Theorsche 9
+    r01-r03    | 9orsche  and
+    r04-r08    | P Porsche 924 and
+    r09        | P Porsche 918 and
+    r10-r37    | P Porsche 928 and
+    r38-r39    | Porsche 928 and
+    r40-r45    | Porsche 928
+    r46-r50    | Porsche 928 and
+    r51-r63    | Porsche 928
+
+  label?  I
+
+============================================================================================
+  #49   [triviaqa]
+
+  Q     Who was on the thrones of England and Scotland at the time of the Act of Union in
+        1707?
+  GOLD  Anne | Ann (name) | ann name
+  ANS   King William III
+
+  TRACE
+    r00-r01    | King the of
+    r02-r05    | King Anne of and   <-- GOLD
+    r06-r09    | King Anne and   <-- GOLD
+    r10-r39    | King George I and
+    r40        | King George I
+    r41        | King James I and
+    r42-r50    | King George I and and
+    r51-r59    | King George I and
+    r60        | King William I
+    r61-r63    | King William III
+
+  label?  I
+
+============================================================================================
+  #50   [hotpotqa]
+
+  Q     What team won the XLII super bowl in their 48th overall season?
+  GOLD  2007 New England Patriots
+  ANS   Patriots
+
+  TRACE
+    r00        | The Bay Bay
+    r01-r03    | The England and
+    r04-r05    | The York and
+    r06-r08    | P York and
+    ...        | (9 unchanged spans)
+    r50-r52    | Patriots and
+    r53        | Patri and
+    r54        | Patriots and
+    r55-r63    | Patriots
+
+  label?  C
+
+============================================================================================
+  #51   [hotpotqa]
+
+  Q     What type of license is the open source roguelike video game video released 2012,
+        in which a subset of it's pricing model is a called free-to-play, licensed under?
+  GOLD  GNU GPLv3
+  ANS   MIT License
+
+  TRACE
+    r00        | MIT
+    r01-r09    | MIT License and
+    r10-r11    | MIT license and
+    r12-r39    | MIT License and
+    r40-r49    | Open License and
+    r50-r53    | MIT License and
+    r54        | MIT License
+    r55-r58    | MIT License and
+    r59-r63    | MIT License
+
+  label?  L
+
+============================================================================================
+  #52   [hotpotqa]
+
+  Q     The name of the Japanese rock band T-Bolan was inspired by the name of an English
+        rock band formed in what year?
+  GOLD  1967
+  ANS   1970
+
+  TRACE
+    r00-r01    | 196
+    r02-r03    | 1960 and
+    r04-r12    | 1969 and
+    r13-r16    | 1965 and
+    r17-r23    | 1968 and
+    r24-r25    | 1965 and
+    r26-r28    | 1968 and
+    r29-r37    | 1960 and
+    r38-r57    | 1970 and
+    r58-r63    | 1970
+
+  label?  C
+
+============================================================================================
+  #53   [triviaqa]
+
+  Q     What is the equivalent Royal Navy rank to an Air Marshall in the R.A.F.?
+  GOLD  VICE ADMIRAL | VAdm | Vice-admiral | V. Adm. | V-Adm
+  ANS   Admir
+
+  TRACE
+    r00-r03    | The equivalent Royal
+    r04-r05    | Admir and
+    r06-r21    | Vmir and
+    r22-r31    | Admir and
+    r32-r37    | Ad Admiral and
+    r38-r53    | Adm and
+    r54-r56    | Admir and
+    r57-r59    | Vmir and
+    r60-r62    | Vmir
+    r63        | Admir
+
+  label?  C
+
+============================================================================================
+  #54   [triviaqa]
+
+  Q     In which year was the Royal British Legion founded?
+  GOLD  1921 | one thousand, nine hundred and twenty-one | one thousand nine hundred and
+        twenty one
+  ANS   1917
+
+  TRACE
+    r00-r01    | 1919 was founded in
+    r02-r09    | 1911 was and
+    r10-r17    | 1911 and
+    r18-r24    | 1919 and
+    r25-r46    | 1917 and
+    r47-r49    | 1927 and
+    r50-r57    | 1917 and
+    r58-r63    | 1917
+
+  label?  C
+
+============================================================================================
+  #55   [triviaqa]
+
+  Q     What is the minimum number of points needed to win a tiebreak in tennis, such as
+        in the Hopman Cup for mixed doubles, on the ATP and WTA tours for doubles and
+        sometmes in USTA league play?
+  GOLD  10 | ten
+  ANS   7
+
+  TRACE
+    r00        | 7 tie
+    r01-r02    | 7. and
+    r03        | 7 and
+    r04        | 7 points and
+    r05-r20    | 7 and
+    r21-r63    | 7
+
+  label?  L
+
+============================================================================================
+  #56   [triviaqa]
+
+  Q     "Who is a South African serial killer who committed the ""ABC Murders"" between
+        1994 and 1995, with over 30 victims?"
+  GOLD  Moses Sithole
+  ANS   Eugene De Wet.
+
+  TRACE
+    r00        | Theius.
+    r01-r02    | Hry and
+    r03-r05    | Hius B and
+    r06-r08    | H Deton and
+    ...        | (13 unchanged spans)
+    r48-r49    |   De Wet. and
+    r50-r53    |   De Wet.
+    r54        |   de Wet.
+    r55-r63    |   De Wet.
+
+  label?  C
+
+============================================================================================
+  #57   [triviaqa]
+
+  Q     A sophomore is a student in which year of a US college?
+  GOLD  Second | 1 second | Fourth (time) | Second (time) | Seconds
+  ANS   2nd year
+
+  TRACE
+    r00        | A sophomore is in year of
+    r01        | A sophomore year and
+    r02-r03    | The second year and   <-- GOLD
+    r04-r11    | The second and   <-- GOLD
+    r12        | The second and and   <-- GOLD
+    r13        | The second and   <-- GOLD
+    r14-r15    | The second and and   <-- GOLD
+    r16-r17    | 2 second and and   <-- GOLD
+    r18-r19    | 2 second and   <-- GOLD
+    ...        | (1 unchanged spans)
+    r22-r45    | 2nd year and
+    r46        | 2nd year and and
+    r47-r57    | 2nd year and
+    r58-r63    | 2nd year
+
+  label?  I
+
+============================================================================================
+  #58   [hotpotqa]
+
+  Q     Who is the mother of the Texas business man that co-founded Ignite! Learning, Inc?
+  GOLD  Barbara Bush
+  ANS   Mary.
+
+  TRACE
+    r00        | The mother of the
+    r01        | The mother and
+    r02        | L. and
+    r03-r15    | Lie and
+    r16-r20    | Lie
+    r21-r24    | L
+    r25        | Lie
+    r26-r61    | Mary
+    r62-r63    | Mary.
+
+  label?  C
+
+============================================================================================
+  #59   [hotpotqa]
+
+  Q     Deyemi Okanlawon was in a music viideo by a Nigerian rapper who began his career
+        with what group?
+  GOLD  The School Boys
+  ANS   Dmx
+
+  TRACE
+    r00-r01    | Deyemi
+    r02-r06    | Dey and
+    r07        | D9 and
+    r08-r27    | Dboy and
+    ...        | (7 unchanged spans)
+    r44-r46    | Dboy and
+    r47-r53    | Dboy
+    r54-r56    | Dmx and
+    r57-r63    | Dmx
+
+  label?  C
+
+============================================================================================
+  #60   [hotpotqa]
+
+  Q     Sachem Central School District encompasses the CDPs that include the hamlet in
+        which New York county?
+  GOLD  Suffolk
+  ANS   Nassau
+
+  TRACE
+    r00        | Sau
+    r01-r08    |  Nassit and
+    r09-r57    |  Nass verbal and
+    r58-r60    |  au and
+    r61-r63    |  au
+
+  label?  L
+
